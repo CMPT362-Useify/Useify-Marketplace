@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Useify</string>
+    <string name="product_details_title">Product Details</string>
+    <string name="search_categories_title">Search &amp; Categories</string>
 </resources>
