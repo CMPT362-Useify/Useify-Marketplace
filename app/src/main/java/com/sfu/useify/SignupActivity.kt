@@ -72,16 +72,13 @@ class SignupActivity : AppCompatActivity() {
     }
 
     fun onChangeProfilePhotoClicked(view : View){
-//        val newScreen : Intent = Intent(this, MainActivity::class.java)
-//        startActivity(newScreen)
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri)
         cameraResult.launch(intent)
     }
 
     fun onSignupSaveClicked(view : View) {
-        // TODO: link to buyer page
-        val newScreen : Intent = Intent(this, MainActivity::class.java)
+        val newScreen : Intent = Intent(this, BrowseActivity::class.java)
         startActivity(newScreen)
     }
 
