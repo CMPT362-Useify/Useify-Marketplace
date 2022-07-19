@@ -1,10 +1,12 @@
-package com.sfu.useify
+package com.sfu.useify.ui.browse
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.GridView
 import androidx.appcompat.app.AppCompatActivity
+import com.sfu.useify.R
+import com.sfu.useify.ui.signup.SignupActivity
 
 class BrowseActivity: AppCompatActivity() {
 

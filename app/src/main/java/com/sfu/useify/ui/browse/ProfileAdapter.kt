@@ -1,4 +1,4 @@
-package com.sfu.useify
+package com.sfu.useify.ui.browse
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.sfu.useify.R
 
 class ProfileAdapter(var context: Context, var title: Array<String>, var price: FloatArray,
                      var image: IntArray) : BaseAdapter() {

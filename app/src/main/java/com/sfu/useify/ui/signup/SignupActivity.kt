@@ -1,4 +1,4 @@
-package com.sfu.useify
+package com.sfu.useify.ui.signup
 
 import android.app.Activity
 import android.content.Intent
@@ -13,6 +13,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
+import com.sfu.useify.*
+import com.sfu.useify.ui.browse.BrowseActivity
+import com.sfu.useify.ui.browse.MyViewModel
 import java.io.File
 
 class SignupActivity : AppCompatActivity() {
