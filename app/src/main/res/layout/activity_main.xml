@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+
         <Button
             android:id="@+id/button_search"
             android:onClick="onSearchClicked"
@@ -30,3 +31,12 @@
     </LinearLayout>
 
 </LinearLayout>
+
+    <Button
+        android:onClick="onSignUpClicked"
+        android:text="signup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
