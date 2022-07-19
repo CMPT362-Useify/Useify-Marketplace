@@ -1,4 +1,4 @@
-package com.sfu.useify
+package com.sfu.useify.ui.productDetails
 
 import android.content.Intent
 import android.net.Uri
@@ -6,10 +6,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import android.graphics.Color
-import android.text.method.LinkMovementMethod
+import com.sfu.useify.R
 
 class ProductDetailActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

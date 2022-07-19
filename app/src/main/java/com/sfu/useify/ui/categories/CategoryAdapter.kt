@@ -1,4 +1,4 @@
-package com.sfu.useify
+package com.sfu.useify.ui.categories
 
 import android.content.Context
 import android.content.res.TypedArray
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.sfu.useify.R
 
 class CategoryAdapter(
         private val context: Context,

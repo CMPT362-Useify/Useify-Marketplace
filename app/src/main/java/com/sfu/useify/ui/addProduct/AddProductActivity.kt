@@ -1,4 +1,4 @@
-package com.sfu.useify.ui
+package com.sfu.useify.ui.addProduct
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

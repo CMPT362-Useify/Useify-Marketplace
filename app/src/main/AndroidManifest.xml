@@ -22,7 +22,7 @@
         android:theme="@style/Theme.Useify"
         tools:targetApi="31">
         <activity
-            android:name=".ui.AddProductActivity"
+            android:name=".ui.addProduct.AddProductActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -34,11 +34,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ProductDetailActivity"
+        <activity android:name=".ui.productDetails.ProductDetailActivity"
             android:exported="false" />
-        <activity android:name=".SearchCategoriesActivity"
+        <activity android:name=".ui.categories.SearchCategoriesActivity"
             android:exported="false" />
-        <activity android:name=".ResultsActivity"
+        <activity android:name=".ui.results.ResultsActivity"
             android:exported="false" />
 
         <provider
@@ -52,6 +52,9 @@
         </provider>
         <activity
             android:name=".ui.signup.SignupActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".ui.addProduct.MyProducts"
             android:exported="true"/>
         <activity
             android:name=".ui.browse.BrowseActivity"

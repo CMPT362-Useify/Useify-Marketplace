@@ -6,6 +6,7 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.GridView
 import androidx.appcompat.app.AppCompatActivity
 import com.sfu.useify.R
+import com.sfu.useify.ui.productDetails.ProductDetailActivity
 import com.sfu.useify.ui.signup.SignupActivity
 
 class BrowseActivity: AppCompatActivity() {
@@ -83,8 +84,7 @@ class BrowseActivity: AppCompatActivity() {
             OnItemClickListener { parent, view, position, id ->
                 val bundle = Bundle()
                 bundle.putString(CURRENT_USER_KEY, titles[position])
-                // TODO: change to product view page
-                val intent = Intent(applicationContext, SignupActivity::class.java)
+                val intent = Intent(applicationContext, ProductDetailActivity::class.java)
                 intent.putExtras(bundle)
                 startActivity(intent)
             }

@@ -15,14 +15,13 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
 import com.sfu.useify.*
 import com.sfu.useify.ui.browse.BrowseActivity
-import com.sfu.useify.ui.browse.MyViewModel
 import java.io.File
 
 class SignupActivity : AppCompatActivity() {
 
     private lateinit var profileImage: ImageView
     private lateinit var cameraResult : ActivityResultLauncher<Intent>
-    private lateinit var myViewModel : MyViewModel
+    private lateinit var myViewModel : SignUpViewModel
     private lateinit var imgUri: Uri
     private val imgFileName = "signUpImage.jpg"
 
@@ -55,7 +54,7 @@ class SignupActivity : AppCompatActivity() {
 
     fun checkForNewProfilePictureAndSet(){
         // check if the image has changed
-        myViewModel = ViewModelProvider(this).get(MyViewModel::class.java)
+        myViewModel = ViewModelProvider(this).get(SignUpViewModel::class.java)
         myViewModel.userImg.observe(this){
             // sets new profilePicture
             val bitmap = Util.getBitmap(this, imgUri)
