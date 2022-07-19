@@ -26,6 +26,8 @@
             android:exported="false" />
         <activity android:name=".SearchCategoriesActivity"
             android:exported="false" />
+        <activity android:name=".ResultsActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -1,5 +1,20 @@
 <resources>
     <string name="app_name">Useify</string>
-    <string name="product_details_title">Product Details</string>
-    <string name="search_categories_title">Search &amp; Categories</string>
+    <string name="product_details_title">Details</string>
+
+    // Search and Categories
+    <string name="search_categories_title">Browse</string>
+    <string name="search_bar_hint">Search Useify</string>
+    <string name="search_results_title">Results</string>
+    
+    // Product details
+    <string name="details_title_temp">Title</string>
+    <string name="details_price_temp">$0.00</string>
+    <string name="details_date_temp">0 days ago</string>
+    <string name="details_description_title">Description</string>
+    <string name="details_description_temp">Description goes here</string>
+    <string name="details_location_temp">8888 University Dr, Burnaby, BC V5A 1S6</string>
+    <string name="details_contact_button">Contact</string>
+    <string name="details_save_button">Save</string>
+
 </resources>
