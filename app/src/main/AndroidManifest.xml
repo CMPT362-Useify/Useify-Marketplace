@@ -36,7 +36,10 @@
                 android:resource="@xml/file_paths"/>
         </provider>
         <activity
-            android:name=".SignupActivity"
+            android:name=".ui.signup.SignupActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".ui.browse.BrowseActivity"
             android:exported="true"/>
     </application>
 

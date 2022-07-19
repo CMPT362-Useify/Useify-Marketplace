@@ -1,4 +1,4 @@
-package com.sfu.useify
+package com.sfu.useify.ui.browse
 
 import android.graphics.Bitmap
 import androidx.lifecycle.MutableLiveData
