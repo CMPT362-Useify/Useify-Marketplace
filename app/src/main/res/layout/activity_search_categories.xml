@@ -7,13 +7,14 @@
     android:layout_marginRight="10dp">
 
     <EditText
+        android:inputType="text"
         android:id="@+id/editview_search"
         android:hint="@string/search_bar_hint"
         android:textSize="20dp"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/search"
+        android:drawableStart="@drawable/search"
         android:drawablePadding="20dp"/>
 
 <!--    <TextView-->

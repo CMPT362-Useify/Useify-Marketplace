@@ -6,6 +6,7 @@
     <string name="search_categories_title">Browse</string>
     <string name="search_bar_hint">Search Useify</string>
     <string name="search_results_title">Results</string>
+    <string name="search_category">Category</string>
     
     // Product details
     <string name="details_title_temp">Title</string>

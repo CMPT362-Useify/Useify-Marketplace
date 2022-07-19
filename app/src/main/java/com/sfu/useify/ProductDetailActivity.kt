@@ -18,13 +18,13 @@ class ProductDetailActivity: AppCompatActivity() {
         setTitle(R.string.product_details_title)
 
         // Setup share and back buttons in Action Bar
-        var actionBar = supportActionBar
+        val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 //        actionBar?.hide()
 
-        val locationLink = findViewById<TextView>(R.id.textview_product_details_location)
-        locationLink.movementMethod = LinkMovementMethod.getInstance();
-        locationLink.setLinkTextColor(Color.BLUE)
+//        val locationLink = findViewById<TextView>(R.id.textview_product_details_location)
+//        locationLink.movementMethod = LinkMovementMethod.getInstance()
+//        locationLink.setLinkTextColor(Color.BLUE)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -19,7 +19,7 @@ class SearchCategoriesActivity: AppCompatActivity() {
 
         // Setup back button in Action Bar
         // https://www.geeksforgeeks.org/how-to-add-and-customize-back-button-of-action-bar-in-android/
-        var actionBar = supportActionBar
+        val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Setup categories list view

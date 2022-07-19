@@ -12,7 +12,7 @@ class ResultsActivity: AppCompatActivity() {
 
 
         // Setup back button in Action Bar
-        var actionBar = supportActionBar
+        val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
         val bundle: Bundle? = intent.extras
