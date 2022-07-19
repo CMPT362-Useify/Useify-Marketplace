@@ -2,4 +2,4 @@
 
 Show and Tell 1
 
-APK in APK Folder
+The APK for show and tell 1 is in the apk Folder
