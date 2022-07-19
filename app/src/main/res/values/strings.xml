@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Useify</string>
+    <string name="signup_user_name">User Name</string>
+    <string name="signup_user_name_hint">Bob Smith 345</string>
+    <string name="signup_name">Name</string>
+    <string name="signup_name_hint">Bob Smith</string>
+    <string name="signup_email">E-Mail</string>
+    <string name="signup_email_hint">BobSmith@gmail.com</string>
+    <string name="signup_phone_number">Phone Number</string>
+    <string name="signup_phone_number_hint">###-###-####</string>
+    <string name="signup_gender_female">Female</string>
+    <string name="signup_gender_male">Male</string>
+    <string name="signup_country">Country</string>
+    <string name="signup_country_hint">Canada</string>
+    <string name="signup_city">City</string>
+    <string name="signup_city_hint">Vancouver</string>
+    <string name="button_save">SAVE</string>
+    <string name="button_cancel">CANCEL</string>
+
+
 </resources>
