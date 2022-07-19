@@ -4,11 +4,32 @@
     <option name="filePathToZoomLevelMap">
       <map>
 
+        <entry key="..\:/Users/sidne/StudioProjects/Useify-Marketplace/app/src/main/res/drawable-night-hdpi/ic_outline_share_24.xml" value="0.1535" />
+        <entry key="..\:/Users/sidne/StudioProjects/Useify-Marketplace/app/src/main/res/drawable-notnight-hdpi/ic_baseline_location_on_24.xml" value="0.238" />
+        <entry key="..\:/Users/sidne/StudioProjects/Useify-Marketplace/app/src/main/res/drawable-notnight-hdpi/ic_outline_share_24.xml" value="0.1535" />
+        <entry key="..\:/Users/sidne/StudioProjects/Useify-Marketplace/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.332" />
+        <entry key="..\:/Users/sidne/StudioProjects/Useify-Marketplace/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.238" />
+        <entry key="..\:/Users/sidne/StudioProjects/Useify-Marketplace/app/src/main/res/drawable/ic_launcher_background.xml" value="0.238" />
+        <entry key="..\:/Users/sidne/StudioProjects/Useify-Marketplace/app/src/main/res/drawable/ic_outline_share_24.xml" value="0.1535" />
+        <entry key="..\:/Users/sidne/StudioProjects/Useify-Marketplace/app/src/main/res/drawable/ic_outline_share_24_night.xml" value="0.1535" />
+        <entry key="..\:/Users/sidne/StudioProjects/Useify-Marketplace/app/src/main/res/drawable/ic_round_arrow_back_24.xml" value="0.26" />
+        <entry key="..\:/Users/sidne/StudioProjects/Useify-Marketplace/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/sidne/StudioProjects/Useify-Marketplace/app/src/main/res/layout/activity_product_detail.xml" value="0.25" />
+        <entry key="..\:/Users/sidne/StudioProjects/Useify-Marketplace/app/src/main/res/layout/activity_results.xml" value="0.14583333333333334" />
+        <entry key="..\:/Users/sidne/StudioProjects/Useify-Marketplace/app/src/main/res/layout/activity_search_categories.xml" value="0.30357142857142855" />
+        <entry key="..\:/Users/sidne/StudioProjects/Useify-Marketplace/app/src/main/res/layout/listview_category.xml" value="0.26510416666666664" />
+        <entry key="..\:/Users/sidne/StudioProjects/Useify-Marketplace/app/src/main/res/layout/listview_category_layout.xml" value="0.365625" />
+        <entry key="..\:/Users/sidne/StudioProjects/Useify-Marketplace/app/src/main/res/layout/listview_results.xml" value="0.14583333333333334" />
+        <entry key="..\:/Users/sidne/StudioProjects/Useify-Marketplace/app/src/main/res/menu/menu_product_details.xml" value="0.23072916666666668" />
+        <entry key="..\:/Users/sidne/StudioProjects/Useify-Marketplace/app/src/main/res/menu/menu_results.xml" value="0.14583333333333334" />
+
+
         <entry key="..\:/CMPT_362/Useify/app/src/main/res/layout/activity_browse.xml" value="0.27077001013171226" />
         <entry key="..\:/CMPT_362/Useify/app/src/main/res/layout/activity_main.xml" value="0.5096774193548387" />
         <entry key="..\:/CMPT_362/Useify/app/src/main/res/layout/activity_signup.xml" value="0.33" />
         <entry key="..\:/CMPT_362/Useify/app/src/main/res/layout/login_grid_item.xml" value="0.2712765957446808" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.11639492753623189" />
+
       </map>
     </option>
   </component>
