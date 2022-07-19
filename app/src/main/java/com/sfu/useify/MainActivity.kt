@@ -2,14 +2,13 @@ package com.sfu.useify
 
 import android.content.Intent
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.view.View
+import com.sfu.useify.ui.addProduct.AddProductActivity
+import com.sfu.useify.ui.addProduct.MyProducts
+import com.sfu.useify.ui.categories.SearchCategoriesActivity
+import com.sfu.useify.ui.productDetails.ProductDetailActivity
 import com.sfu.useify.ui.signup.SignupActivity
 
 
@@ -32,6 +31,16 @@ class MainActivity : AppCompatActivity() {
 
     fun onSignUpClicked(view : View){
         val newScreen : Intent = Intent(this, SignupActivity::class.java)
+        startActivity(newScreen)
+    }
+
+    fun onAddProductClicked(view : View){
+        val newScreen : Intent = Intent(this, AddProductActivity::class.java)
+        startActivity(newScreen)
+    }
+
+    fun onProductList(view : View){
+        val newScreen : Intent = Intent(this, MyProducts::class.java)
         startActivity(newScreen)
     }
 }

@@ -1,4 +1,4 @@
-package com.sfu.useify
+package com.sfu.useify.ui.categories
 
 import android.content.Intent
 import android.content.res.TypedArray
@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import com.sfu.useify.R
+import com.sfu.useify.ui.results.ResultsActivity
 
 class SearchCategoriesActivity: AppCompatActivity() {
     private lateinit var CATEGORIES: Array<String>

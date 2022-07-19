@@ -1,8 +1,9 @@
-package com.sfu.useify
+package com.sfu.useify.ui.results
 
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.sfu.useify.R
 
 class ResultsActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
