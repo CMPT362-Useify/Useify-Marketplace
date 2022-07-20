@@ -3,7 +3,7 @@ __________________________________________________
 Pitch: https://www.youtube.com/watch?v=KiMM4rJWTbY
 
 __________________________________________________
-Show and Tell 1: 
+Show and Tell 1: https://www.youtube.com/watch?v=NXIr_uIXW28
 
 Downloadable apk is under the APK folder
 
