@@ -13,3 +13,4 @@ class AddProductActivity : AppCompatActivity() {
 
     }
 }
+

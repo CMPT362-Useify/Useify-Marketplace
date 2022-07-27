@@ -36,6 +36,9 @@
     <string name="button_save">SAVE</string>
     <string name="button_cancel">CANCEL</string>
 
+    //Explore page
+    <string name="button_explore">Explore</string>
+
 
 
 </resources>

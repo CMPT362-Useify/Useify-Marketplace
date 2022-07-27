@@ -7,6 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.sfu.useify.ui.addProduct.AddProductActivity
 import com.sfu.useify.ui.addProduct.MyProducts
+import com.sfu.useify.ui.browse.BrowseActivity
 import com.sfu.useify.ui.categories.SearchCategoriesActivity
 import com.sfu.useify.ui.productDetails.ProductDetailActivity
 import com.sfu.useify.ui.signup.SignupActivity
@@ -30,17 +31,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onSignUpClicked(view : View){
-        val newScreen : Intent = Intent(this, SignupActivity::class.java)
+        val newScreen = Intent(this, SignupActivity::class.java)
+        startActivity(newScreen)
+    }
+
+    fun onExploreClicked(view: View){
+        val newScreen = Intent(this, BrowseActivity::class.java)
         startActivity(newScreen)
     }
 
     fun onAddProductClicked(view : View){
-        val newScreen : Intent = Intent(this, AddProductActivity::class.java)
+        val newScreen = Intent(this, AddProductActivity::class.java)
         startActivity(newScreen)
     }
 
     fun onProductList(view : View){
-        val newScreen : Intent = Intent(this, MyProducts::class.java)
+        val newScreen = Intent(this, MyProducts::class.java)
         startActivity(newScreen)
     }
 }

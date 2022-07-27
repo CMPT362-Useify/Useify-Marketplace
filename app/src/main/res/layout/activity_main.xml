@@ -32,31 +32,46 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/explore_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/purple_500"
+            android:text="@string/button_explore"
+            android:textColor="@color/white"
+            android:onClick="onExploreClicked">
+
+        </androidx.appcompat.widget.AppCompatButton>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/button_details"
-            android:onClick="onDetailsClicked"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="0.5"
-            android:text="Details"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:onClick="onDetailsClicked"
+            android:text="Details" />
 
 
         <Button
             android:id="@+id/button_search"
-            android:onClick="onSearchClicked"
-            android:layout_weight="0.5"
-            android:text="Search"
-            android:layout_margin="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="0.5"
+            android:onClick="onSearchClicked"
+            android:text="Search" />
     </LinearLayout>
-
 
 
 </LinearLayout>
