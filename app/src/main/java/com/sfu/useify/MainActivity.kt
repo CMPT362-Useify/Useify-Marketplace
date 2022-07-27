@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+
     fun onSignUpClicked(view : View){
         val newScreen = Intent(this, SignupActivity::class.java)
         startActivity(newScreen)
