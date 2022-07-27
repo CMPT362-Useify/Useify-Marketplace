@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.sfu.useify.resetPages.GeneralSettings
+import com.sfu.useify.resetPages.ResetPassword
 import com.sfu.useify.ui.addProduct.AddProductActivity
 import com.sfu.useify.ui.addProduct.MyProducts
 import com.sfu.useify.ui.browse.BrowseActivity
@@ -38,6 +40,16 @@ class MainActivity : AppCompatActivity() {
 
     fun onExploreClicked(view: View){
         val newScreen = Intent(this, BrowseActivity::class.java)
+        startActivity(newScreen)
+    }
+
+    fun onSettingsClicked(view: View){
+        val newScreen = Intent(this, GeneralSettings::class.java)
+        startActivity(newScreen)
+    }
+
+    fun onResetClicked(view: View){
+        val newScreen = Intent(this, ResetPassword::class.java)
         startActivity(newScreen)
     }
 
