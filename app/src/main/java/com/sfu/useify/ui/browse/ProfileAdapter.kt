@@ -9,8 +9,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.sfu.useify.R
 
-class ProfileAdapter(var context: Context, var title: Array<String>, var price: FloatArray,
-                     var image: IntArray) : BaseAdapter() {
+class ProfileAdapter(
+    var context: Context, var title: MutableList<String>, var price: MutableList<Float>,
+    var image: IntArray) : BaseAdapter() {
     var layoutInflater: LayoutInflater? = null
     override fun getCount(): Int {
         return title.size
