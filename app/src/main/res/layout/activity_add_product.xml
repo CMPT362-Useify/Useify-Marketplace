@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="5dp"
     tools:context=".ui.addProduct.AddProductActivity">
 
     <TextView
@@ -50,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="25"
-            android:inputType="text"
+            android:inputType="numberDecimal"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         <TextView
@@ -119,8 +120,10 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/productFormLl"
         android:orientation="horizontal"
-        android:paddingTop="20dp">
-
+        android:paddingTop="20dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        >
         <Button
             android:id="@+id/cancelBtn"
             android:layout_width="match_parent"
@@ -136,6 +139,7 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:onClick="onAddNewProductClicked"
             android:text="Add" />
 
     </LinearLayout>
