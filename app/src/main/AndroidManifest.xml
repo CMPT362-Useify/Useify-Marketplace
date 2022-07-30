@@ -59,6 +59,19 @@
         <activity
             android:name=".ui.browse.BrowseActivity"
             android:exported="true"/>
+        <activity android:name=".resetPages.GeneralSettings" android:exported="true">
+
+        </activity>
+
+        <activity android:name=".resetPages.Password" android:exported="true">
+
+        </activity>
+        <activity android:name=".resetPages.ResetPassword" android:exported="true">
+
+        </activity>
+        <activity android:name=".resetPages.Username" android:exported="true">
+
+        </activity>
 
     </application>
 
