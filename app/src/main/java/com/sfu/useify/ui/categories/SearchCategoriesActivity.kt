@@ -5,6 +5,7 @@ import android.content.res.TypedArray
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ListView
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import com.sfu.useify.R
 import com.sfu.useify.ui.results.ResultsActivity
@@ -13,6 +14,7 @@ class SearchCategoriesActivity: AppCompatActivity() {
     private lateinit var CATEGORIES: Array<String>
     private lateinit var CATEGORIES_ICONS: TypedArray
     private lateinit var categoriesListView: ListView
+    private lateinit var searchView: SearchView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +37,32 @@ class SearchCategoriesActivity: AppCompatActivity() {
         categoriesListView.setOnItemClickListener() { adapterView, view, i, l ->
             onCategoryClicked(i)
         }
+
+        // Setup SearchView
+        searchView = findViewById(R.id.searchView_search_categories)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(queryString: String?): Boolean {
+                println("Debug: Query received = '$queryString'")
+
+                val searchIntent = Intent(this@SearchCategoriesActivity, ResultsActivity::class.java)
+
+                val bundle = Bundle()
+                bundle.putString(resources.getString(R.string.key_search_query), queryString)
+
+                searchIntent.putExtras(bundle)
+                startActivity(searchIntent)
+
+                // true if the query has been handled by the listener, false to let the
+                // SearchView perform the default action.
+                return true
+            }
+
+            override fun onQueryTextChange(queryString: String?): Boolean {
+                // false if the SearchView should perform the default action of showing any
+                // suggestions if available, true if the action was handled by the listener.
+                return true
+            }
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

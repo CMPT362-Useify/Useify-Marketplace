@@ -6,21 +6,15 @@
     android:layout_height="match_parent"
     android:layout_marginRight="10dp">
 
-    <androidx.appcompat.widget.SearchView
+    <SearchView
         android:id="@+id/searchView_search_categories"
-        app:searchIcon="@drawable/search"
-        app:iconifiedByDefault="false"
+        android:searchIcon="@drawable/search"
+        android:inputType="text"
+        android:iconifiedByDefault="false"
         android:layout_marginRight="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-<!--    <TextView-->
-<!--        android:text="Categories:"-->
-<!--        android:textSize="30dp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:paddingBottom="10dp"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content" />-->
+        android:layout_height="wrap_content"
+        android:queryHint="@string/search_bar_hint"/>
 
     <ListView
         android:id="@+id/listview_categories"
