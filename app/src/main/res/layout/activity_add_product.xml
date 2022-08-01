@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="5dp"
-    tools:context=".ui.addProduct.AddProductActivity">
+    tools:context=".ui.addProduct.AddEditProductActivity">
 
     <TextView
         android:id="@+id/addProductTv"
@@ -43,7 +43,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-
             android:text="Price" />
 
         <EditText
@@ -53,6 +52,22 @@
             android:ems="25"
             android:inputType="numberDecimal"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/productCategoryTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Price" />
+
+        <Spinner
+            android:id="@+id/categorySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:entries="@array/categories_spinner_entries"
+            android:focusable="false"
+            android:textSize="15dp"></Spinner>
 
         <TextView
             android:id="@+id/productDescTv"
@@ -70,7 +85,6 @@
             android:inputType="text"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
-
         <TextView
             android:id="@+id/productLocationTv"
             android:layout_width="match_parent"
@@ -86,21 +100,14 @@
             android:inputType="text"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
-        <TextView
-            android:id="@+id/productRestrictionsTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
 
-            android:text="Restrictions" />
-
-        <EditText
-            android:id="@+id/productRestrictionsEt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="50"
-            android:inputType="text"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+        <ImageView
+            android:id="@+id/productImgIv"
+            android:layout_width="250dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_baseline_image_500"
+            android:layout_margin="5dp"></ImageView>
 
         <Button
             android:id="@+id/btnUpload"
@@ -109,7 +116,8 @@
             android:layout_marginTop="16dp"
             android:padding="5dp"
             android:layout_gravity="center_horizontal"
-            android:text="Select Images to Upload"
+            android:text="Select an Image to Upload"
+            android:onClick="onChangeProductImgClicked"
             android:textAllCaps="false"
             android:textColor="#FFFFFF" />
 
@@ -130,6 +138,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
+            android:onClick="onCancelProductClicked"
             android:text="Cancel" />
 
         <Button
