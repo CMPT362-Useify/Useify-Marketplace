@@ -1,10 +1,12 @@
 package com.sfu.useify
 
 import android.content.Intent
+import android.content.res.Configuration
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.sfu.useify.resetPages.GeneralSettings
 import com.sfu.useify.resetPages.ResetPassword
 import com.sfu.useify.ui.addProduct.AddProductActivity
@@ -19,6 +21,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+    }
+
+    fun changeTheme(view: View){
+        val nightModeFlags = resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK
+        if(nightModeFlags == Configuration.UI_MODE_NIGHT_YES){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
 
     }
 

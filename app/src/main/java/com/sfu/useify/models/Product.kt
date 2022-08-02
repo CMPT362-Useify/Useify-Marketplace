@@ -13,6 +13,7 @@ data class Product (
     var category: String = "",
     var pickupLat: Double = 0.0,
     var pickupLong: Double = 0.0,
+    var createAt: Long = System.currentTimeMillis(),    //This createAt is saved in the form of Unix timestamp , need to convert DateTime
     var productID: String="" ,
 ){
     @Exclude
