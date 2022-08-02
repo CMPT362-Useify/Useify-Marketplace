@@ -1,11 +1,16 @@
 package com.sfu.useify.ui.browse
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.GridView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.lifecycle.MutableLiveData
 import com.sfu.useify.R
 import com.sfu.useify.database.productsViewModel
@@ -40,12 +45,27 @@ class BrowseActivity: AppCompatActivity() {
         getGridData()
         setGridView()
         gridViewOnClickListener()
+
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
     }
+
+    fun changeTheme(view: View){
+        val nightModeFlags = resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK
+        if(nightModeFlags == Configuration.UI_MODE_NIGHT_YES){
+            AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
+        }
+
+    }
+
+
 
 
     /**

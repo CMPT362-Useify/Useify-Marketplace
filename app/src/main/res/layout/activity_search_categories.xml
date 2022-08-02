@@ -6,6 +6,18 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp">
 
+    <androidx.appcompat.widget.AppCompatToggleButton
+        android:id="@+id/dark_theme_toggle_search_categories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#009688"
+        android:backgroundTint="@color/teal_700"
+        android:buttonTint="@color/teal_700"
+        android:onClick="changeTheme"
+        >
+
+    </androidx.appcompat.widget.AppCompatToggleButton>
+
     <EditText
         android:inputType="text"
         android:id="@+id/editview_search"
