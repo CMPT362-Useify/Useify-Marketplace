@@ -92,7 +92,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <!--            TODO: Make it look like a link-->
             <TextView
                 android:id="@+id/textview_product_details_location"
                 android:drawableLeft="@drawable/ic_baseline_location_on_24"

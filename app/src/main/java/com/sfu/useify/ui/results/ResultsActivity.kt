@@ -51,9 +51,6 @@ class ResultsActivity: AppCompatActivity() {
         // Setup RecyclerView
         recyclerView = findViewById<RecyclerView>(R.id.recyclerview_results)
         recyclerView.layoutManager = GridLayoutManager(this, recyclerViewSpanCount)
-        // TODO: Get relevant data from database here and feed into the adapter.
-        //       Change the data given to the adapter upon a change in sorting configuration
-        //       and refresh(?) to apply.
 
         // Setup back button in Action Bar
         val actionBar = supportActionBar
@@ -255,7 +252,7 @@ class ResultsActivity: AppCompatActivity() {
 
     private fun getProductList(): LiveData<List<Product>> {
         when (searchType){
-            // TODO: Change CATEGORY case back to proper way when ViewModel gets fixed
+            // TODO: Change CATEGORY case back to commented way when DB gets more products with categories
             ALL -> return productsViewModel.getAllProducts()
             CATEGORY -> return productsViewModel.getAllProducts()
 //            CATEGORY -> return productsViewModel.getProductByCategory(searchCategory)
