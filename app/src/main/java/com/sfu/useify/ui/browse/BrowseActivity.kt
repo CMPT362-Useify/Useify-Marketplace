@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.GridView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import com.sfu.useify.R
@@ -21,6 +22,7 @@ class BrowseActivity: AppCompatActivity() {
     private lateinit var gridView: GridView
     private lateinit var titles: MutableList<String>
     private lateinit var price: MutableList<Float>
+    private lateinit var ids: MutableList<String>
     private lateinit var images: IntArray
     private lateinit var productDatabase: productsViewModel
     private lateinit var myArrayList: MutableLiveData<List<Product>>
@@ -53,11 +55,13 @@ class BrowseActivity: AppCompatActivity() {
         myArrayList = productDatabase.getAllProducts()
         titles = ArrayList()
         price = ArrayList()
+        ids = ArrayList()
 
         myArrayList.observe(this) {
             val myProduct : List<Product>? = it
             if (myProduct != null) {
                 for(product in myProduct){
+                    ids.add(product.productID)
                     titles.add(product.name)
                     price.add(product.price.toFloat())
                 }
@@ -95,10 +99,8 @@ class BrowseActivity: AppCompatActivity() {
     private fun gridViewOnClickListener() {
         gridView!!.onItemClickListener =
             OnItemClickListener { parent, view, position, id ->
-                val bundle = Bundle()
-                bundle.putString(CURRENT_USER_KEY, titles[position])
                 val intent = Intent(applicationContext, ProductDetailActivity::class.java)
-                intent.putExtras(bundle)
+                intent.putExtra("productIdKey", ids[position])
                 startActivity(intent)
             }
     }
