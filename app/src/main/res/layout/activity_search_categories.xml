@@ -3,42 +3,21 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp">
 
-    <androidx.appcompat.widget.AppCompatToggleButton
-        android:id="@+id/dark_theme_toggle_search_categories"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#009688"
-        android:backgroundTint="@color/teal_700"
-        android:buttonTint="@color/teal_700"
-        android:onClick="changeTheme"
-        >
-
-    </androidx.appcompat.widget.AppCompatToggleButton>
-
-    <EditText
+    <SearchView
+        android:id="@+id/searchView_search_categories"
+        android:searchIcon="@drawable/search"
         android:inputType="text"
-        android:id="@+id/editview_search"
-        android:hint="@string/search_bar_hint"
-        android:textSize="20dp"
-        android:layout_margin="10dp"
+        android:iconifiedByDefault="false"
+        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/search"
-        android:drawablePadding="20dp"/>
-
-<!--    <TextView-->
-<!--        android:text="Categories:"-->
-<!--        android:textSize="30dp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:paddingBottom="10dp"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content" />-->
+        android:queryHint="@string/search_bar_hint"/>
 
     <ListView
         android:id="@+id/listview_categories"
+        android:layout_marginLeft="10dp"
         android:divider="@null"
         android:dividerHeight="0dp"
         android:layout_width="match_parent"
