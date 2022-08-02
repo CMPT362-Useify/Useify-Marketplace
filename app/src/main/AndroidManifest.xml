@@ -46,6 +46,10 @@
         </activity>
         <activity android:name=".ui.results.ResultsActivity"
             android:exported="false" />
+        <activity android:name=".ui.chat.ChatMenuActivity"
+            android:exported="false" />
+        <activity android:name=".ui.chat.ChatActivity"
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

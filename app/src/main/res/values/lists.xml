@@ -45,4 +45,13 @@
         <item>@drawable/tv</item>
         <item>@drawable/video_games</item>
     </integer-array>
+
+    <string name="search_sort_menu_recent">Most Recent</string>
+    <string name="search_sort_menu_cheap">Price: Low-High</string>
+    <string name="search_sort_menu_expensive">Price: High-Low</string>
+    <string-array name="search_sort_menu_items">
+        <item>@string/search_sort_menu_recent</item>
+        <item>@string/search_sort_menu_cheap</item>
+        <item>@string/search_sort_menu_expensive</item>
+    </string-array>
 </resources>
