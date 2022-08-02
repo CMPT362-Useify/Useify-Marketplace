@@ -2,7 +2,7 @@ package com.sfu.useify.ui.browse
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
+import android.util.Log
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.GridView
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +21,7 @@ class BrowseActivity: AppCompatActivity() {
     private lateinit var gridView: GridView
     private lateinit var titles: MutableList<String>
     private lateinit var price: MutableList<Float>
-    private lateinit var images: IntArray
+    private lateinit var images: MutableList<String>
     private lateinit var productDatabase: productsViewModel
     private lateinit var myArrayList: MutableLiveData<List<Product>>
 
@@ -53,6 +53,7 @@ class BrowseActivity: AppCompatActivity() {
         myArrayList = productDatabase.getAllProducts()
         titles = ArrayList()
         price = ArrayList()
+        images = ArrayList()
 
         myArrayList.observe(this) {
             val myProduct : List<Product>? = it
@@ -60,22 +61,12 @@ class BrowseActivity: AppCompatActivity() {
                 for(product in myProduct){
                     titles.add(product.name)
                     price.add(product.price.toFloat())
+                    images.add(product.image)
                 }
                 setGridView()
             }
 
         }
-
-        images = intArrayOf(
-            R.drawable.gaming_computer, R.drawable.gaming_computer, R.drawable.gaming_computer,
-            R.drawable.gaming_computer, R.drawable.gaming_computer, R.drawable.gaming_computer,
-            R.drawable.gaming_computer, R.drawable.gaming_computer, R.drawable.gaming_computer,
-            R.drawable.gaming_computer, R.drawable.gaming_computer, R.drawable.gaming_computer,
-            R.drawable.gaming_computer, R.drawable.gaming_computer, R.drawable.gaming_computer,
-            R.drawable.gaming_computer, R.drawable.gaming_computer, R.drawable.gaming_computer,
-            R.drawable.gaming_computer, R.drawable.gaming_computer, R.drawable.gaming_computer,
-            R.drawable.gaming_computer, R.drawable.gaming_computer, R.drawable.gaming_computer
-        )
     }
 
     /**
@@ -93,7 +84,7 @@ class BrowseActivity: AppCompatActivity() {
      * Post-condition: current user changed to selected item
      */
     private fun gridViewOnClickListener() {
-        gridView!!.onItemClickListener =
+        gridView.onItemClickListener =
             OnItemClickListener { parent, view, position, id ->
                 val bundle = Bundle()
                 bundle.putString(CURRENT_USER_KEY, titles[position])

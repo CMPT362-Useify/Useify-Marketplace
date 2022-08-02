@@ -8,10 +8,11 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.sfu.useify.R
+import com.squareup.picasso.Picasso
 
 class ProfileAdapter(
     var context: Context, var title: MutableList<String>, var price: MutableList<Float>,
-    var image: IntArray) : BaseAdapter() {
+    var image: MutableList<String>) : BaseAdapter() {
     var layoutInflater: LayoutInflater? = null
     override fun getCount(): Int {
         return title.size
@@ -21,8 +22,8 @@ class ProfileAdapter(
         return i
     }
 
-    override fun getItemId(i: Int): Long {
-        return 0
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View? {
@@ -37,7 +38,7 @@ class ProfileAdapter(
         val imageView = view?.findViewById<ImageView>(R.id.grid_image)
         val priceView = view?.findViewById<TextView>(R.id.item_price)
         val titleView = view?.findViewById<TextView>(R.id.item_title)
-        imageView?.setImageResource(image[position])
+        Picasso.get().load(image[position]).into(imageView)
         priceView?.text = "$" + price[position]
         titleView?.text = title[position]
         return view

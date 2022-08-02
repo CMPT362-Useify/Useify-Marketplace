@@ -77,23 +77,28 @@
 
         <Button
             android:id="@+id/button_details"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="0.5"
+            android:backgroundTint="@color/purple_500"
             android:onClick="onDetailsClicked"
             android:text="@string/details"
-            style="?android:attr/buttonBarButtonStyle" />
+            android:textColor="@color/white" />
 
 
         <Button
             android:id="@+id/button_search"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="0.5"
+            android:backgroundTint="@color/purple_500"
             android:onClick="onSearchClicked"
-            android:text="@string/search" />
+            android:text="@string/search"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 
