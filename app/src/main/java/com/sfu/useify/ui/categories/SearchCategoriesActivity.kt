@@ -5,6 +5,7 @@ import android.content.res.TypedArray
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ListView
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import com.sfu.useify.R
 import com.sfu.useify.ui.results.ResultsActivity
@@ -13,6 +14,7 @@ class SearchCategoriesActivity: AppCompatActivity() {
     private lateinit var CATEGORIES: Array<String>
     private lateinit var CATEGORIES_ICONS: TypedArray
     private lateinit var categoriesListView: ListView
+    private lateinit var searchView: SearchView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +37,34 @@ class SearchCategoriesActivity: AppCompatActivity() {
         categoriesListView.setOnItemClickListener() { adapterView, view, i, l ->
             onCategoryClicked(i)
         }
+
+        // Setup SearchView
+        searchView = findViewById(R.id.searchView_search_categories)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(queryString: String?): Boolean {
+                onQuery(queryString)
+                // true if the query has been handled by the listener, false to let the
+                // SearchView perform the default action.
+                return true
+            }
+            override fun onQueryTextChange(queryString: String?): Boolean {
+                // false if the SearchView should perform the default action of showing any
+                // suggestions if available, true if the action was handled by the listener.
+                return true
+            }
+        })
+    }
+
+    private fun onQuery(queryString: String?){
+        val searchIntent = Intent(this, ResultsActivity::class.java)
+
+        val bundle = Bundle()
+        bundle.putInt(resources.getString(R.string.key_search_query_type),
+            ResultsActivity.SEARCH_STRING)
+        bundle.putString(resources.getString(R.string.key_search_query), queryString)
+
+        searchIntent.putExtras(bundle)
+        startActivity(searchIntent)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -52,7 +82,12 @@ class SearchCategoriesActivity: AppCompatActivity() {
         val categoryIntent = Intent(this, ResultsActivity::class.java)
 
         val bundle = Bundle()
-        bundle.putInt(resources.getString(R.string.key_category_id), pos)
+        if (pos == 0){
+            bundle.putInt(resources.getString(R.string.key_search_query_type), ResultsActivity.ALL)
+        } else {
+            bundle.putInt(resources.getString(R.string.key_search_query_type), ResultsActivity.CATEGORY)
+            bundle.putInt(resources.getString(R.string.key_category_id), pos)
+        }
 
         categoryIntent.putExtras(bundle)
         startActivity(categoryIntent)

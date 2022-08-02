@@ -2,6 +2,7 @@ package com.sfu.useify.ui.signup
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,6 +13,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
 import com.sfu.useify.*
@@ -78,6 +80,17 @@ class SignupActivity : AppCompatActivity() {
             val bitmap = Util.getBitmap(this, imgUri)
             profileImage.setImageBitmap(bitmap)
         }
+    }
+
+    fun changeTheme(view: View){
+        val nightModeFlags = resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK
+        if(nightModeFlags == Configuration.UI_MODE_NIGHT_YES){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+
     }
 
     fun captureAndSetProfilePicture(){
