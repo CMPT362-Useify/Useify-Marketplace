@@ -3,6 +3,7 @@ package com.sfu.useify.ui.addProduct
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -47,6 +48,7 @@ class AddEditProductActivity : AppCompatActivity() {
     private val mTempImgName = "my_temp_img.jpg"
     private val mProductName = "my_profile.jpg"
     private lateinit var mProductImgUri: Uri
+    private lateinit var bitmap: Bitmap
 
     // Models
     val productsViewModel = productsViewModel();
@@ -75,7 +77,7 @@ class AddEditProductActivity : AppCompatActivity() {
 
     private fun setPrpductImg(imgName: String, imgUri: Uri) {
         if (File(getExternalFilesDir(null), imgName).exists()) {
-            val bitmap = Util.getBitmap(this, imgUri)
+            bitmap = Util.getBitmap(this, imgUri)
             mImageView.setImageBitmap(bitmap)
         }
     }
@@ -95,6 +97,8 @@ class AddEditProductActivity : AppCompatActivity() {
         ) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
                 setPrpductImg(mTempImgName, mTempImgUri)
+
+
             }
         }
 
@@ -106,6 +110,7 @@ class AddEditProductActivity : AppCompatActivity() {
                 val uri = intentData?.data!!
                 Util.saveBitmapIntoDevice(this, mTempImgName, uri)
                 setPrpductImg(mTempImgName, mTempImgUri)
+
             }
         }
         // end photo widget setup
@@ -135,7 +140,6 @@ class AddEditProductActivity : AppCompatActivity() {
 
     fun onAddNewProductClicked(view: View) {
 
-        val bitmap = Util.getBitmap(this, mProductImgUri)
         Toast.makeText(this, "product img " + mProductImgUri, Toast.LENGTH_LONG).show()
 
         val newProduct = Product(
