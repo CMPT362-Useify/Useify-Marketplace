@@ -1,12 +1,15 @@
 package com.sfu.useify.ui.categories
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.content.res.TypedArray
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.ListView
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.sfu.useify.R
 import com.sfu.useify.ui.results.ResultsActivity
 
@@ -73,6 +76,17 @@ class SearchCategoriesActivity: AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun changeTheme(view: View){
+        val nightModeFlags = resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK
+        if(nightModeFlags == Configuration.UI_MODE_NIGHT_YES){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+
     }
 
     // Show results given the selected category

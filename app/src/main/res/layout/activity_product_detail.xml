@@ -18,6 +18,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
+            <androidx.appcompat.widget.AppCompatToggleButton
+                android:id="@+id/dark_theme_toggle_product_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#009688"
+                android:backgroundTint="@color/teal_700"
+                android:buttonTint="@color/teal_700"
+                android:onClick="changeTheme"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </androidx.appcompat.widget.AppCompatToggleButton>
+
             <ImageView
                 android:id="@+id/imageview_product_details_photo"
                 android:src="@drawable/tv"

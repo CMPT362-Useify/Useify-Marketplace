@@ -1,12 +1,14 @@
 package com.sfu.useify.ui.productDetails
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.sfu.useify.R
 
 class ProductDetailActivity: AppCompatActivity() {
@@ -28,6 +30,17 @@ class ProductDetailActivity: AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_product_details, menu)
         return true
+    }
+
+    fun changeTheme(view: View){
+        val nightModeFlags = resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK
+        if(nightModeFlags == Configuration.UI_MODE_NIGHT_YES){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+
     }
 
 
