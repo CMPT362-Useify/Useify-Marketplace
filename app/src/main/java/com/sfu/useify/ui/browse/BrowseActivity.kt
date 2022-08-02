@@ -11,6 +11,9 @@ import com.sfu.useify.R
 import com.sfu.useify.database.productsViewModel
 import com.sfu.useify.models.Product
 import com.sfu.useify.ui.productDetails.ProductDetailActivity
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class BrowseActivity: AppCompatActivity() {
 
@@ -24,6 +27,7 @@ class BrowseActivity: AppCompatActivity() {
     private lateinit var images: MutableList<String>
     private lateinit var productDatabase: productsViewModel
     private lateinit var myArrayList: MutableLiveData<List<Product>>
+    private lateinit var myDate: MutableList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,14 +58,18 @@ class BrowseActivity: AppCompatActivity() {
         titles = ArrayList()
         price = ArrayList()
         images = ArrayList()
+        myDate = ArrayList()
 
         myArrayList.observe(this) {
             val myProduct : List<Product>? = it
             if (myProduct != null) {
                 for(product in myProduct){
-                    titles.add(product.name)
+                    titles.add("Name of the product is:\n ${product.name}")
                     price.add(product.price.toFloat())
                     images.add(product.image)
+                    val formatter = SimpleDateFormat("MMMM-dd-yyyy", Locale.CANADA)
+                    val dateString: String = formatter.format(Date(product.createAt))
+                    myDate.add("Date created: $dateString")
                 }
                 setGridView()
             }
@@ -75,7 +83,7 @@ class BrowseActivity: AppCompatActivity() {
      */
     private fun setGridView() {
         gridView = findViewById(R.id.browseGridView)
-        val profileAdapter = ProfileAdapter(this, titles, price, images)
+        val profileAdapter = ProfileAdapter(this, titles, price, images, myDate)
         gridView.adapter = profileAdapter
     }
 

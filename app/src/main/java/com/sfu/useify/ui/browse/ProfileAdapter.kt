@@ -9,10 +9,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.sfu.useify.R
 import com.squareup.picasso.Picasso
+import java.util.*
 
 class ProfileAdapter(
     var context: Context, var title: MutableList<String>, var price: MutableList<Float>,
-    var image: MutableList<String>) : BaseAdapter() {
+    var image: MutableList<String>, var date: MutableList<String>
+) : BaseAdapter() {
     var layoutInflater: LayoutInflater? = null
     override fun getCount(): Int {
         return title.size
@@ -38,9 +40,12 @@ class ProfileAdapter(
         val imageView = view?.findViewById<ImageView>(R.id.grid_image)
         val priceView = view?.findViewById<TextView>(R.id.item_price)
         val titleView = view?.findViewById<TextView>(R.id.item_title)
+
+        val dateView = view?.findViewById<TextView>(R.id.item_date)
         Picasso.get().load(image[position]).into(imageView)
         priceView?.text = "$" + price[position]
         titleView?.text = title[position]
+        dateView?.text = date[position]
         return view
     }
 }
