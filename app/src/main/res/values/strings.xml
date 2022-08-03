@@ -27,8 +27,10 @@
     <string name="signup">Sign Up</string>
     <string name="signup_user_name">User Name</string>
     <string name="signup_user_name_hint">Bob Smith 345</string>
-    <string name="signup_name">Name</string>
-    <string name="signup_name_hint">Bob Smith</string>
+    <string name="signup_first_name">First Name</string>
+    <string name="signup_first_name_hint">Bob</string>
+    <string name="signup_last_name">Last Name</string>
+    <string name="signup_last_name_hint">Smith</string>
     <string name="signup_email">E-Mail</string>
     <string name="signup_email_hint">BobSmith@gmail.com</string>
     <string name="signup_phone_number">Phone Number</string>
