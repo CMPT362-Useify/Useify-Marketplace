@@ -1,16 +1,15 @@
 # Useify-Marketplace
 __________________________________________________
 Pitch: https://www.youtube.com/watch?v=KiMM4rJWTbY
-
 __________________________________________________
 Show and Tell 1: https://www.youtube.com/watch?v=NXIr_uIXW28
-
-Downloadable apk is under the APK folder
-
-MVVM diagram is under the MVVM diagram
-
 Downloadable project under show_and_tell_1 release
-
+__________________________________________________
+Show and Tell 2: https://youtu.be/FPG-127uBv8
+Downloadable project under show_and_tell_2 release
+__________________________________________________
+Downloadable apk is under the APK folder
+MVVM diagram is under the MVVM diagram
 __________________________________________________
 Group 04 - Useify
 
