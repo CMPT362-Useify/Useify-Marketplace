@@ -13,6 +13,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatToggleButton
+                android:id="@+id/dark_theme_toggle_sign_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#009688"
+                android:backgroundTint="@color/teal_700"
+                android:buttonTint="@color/teal_700"
+                android:onClick="changeTheme"
+                >
+
+            </androidx.appcompat.widget.AppCompatToggleButton>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

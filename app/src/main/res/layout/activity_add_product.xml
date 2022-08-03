@@ -6,6 +6,18 @@
     android:orientation="vertical"
     tools:context=".ui.addProduct.AddProductActivity">
 
+    <androidx.appcompat.widget.AppCompatToggleButton
+        android:id="@+id/dark_theme_toggle_add_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#009688"
+        android:backgroundTint="@color/teal_700"
+        android:onClick="changeTheme"
+        android:buttonTint="@color/teal_700">
+
+    </androidx.appcompat.widget.AppCompatToggleButton>
+
+
     <TextView
         android:id="@+id/addProductTv"
         android:layout_width="match_parent"
