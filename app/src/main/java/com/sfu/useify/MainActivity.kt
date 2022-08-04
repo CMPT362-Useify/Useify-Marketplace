@@ -14,7 +14,7 @@ import com.sfu.useify.ui.addProduct.MyProducts
 import com.sfu.useify.ui.browse.BrowseActivity
 import com.sfu.useify.ui.categories.SearchCategoriesActivity
 import com.sfu.useify.ui.productDetails.ProductDetailActivity
-import com.sfu.useify.ui.signup.SignupActivity
+import com.sfu.useify.ui.authentication.signup.SignupActivity
 
 
 class MainActivity : AppCompatActivity() {

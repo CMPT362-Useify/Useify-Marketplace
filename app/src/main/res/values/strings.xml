@@ -10,7 +10,7 @@
     <string name="search_category">Category</string>
     <string name="search_sort_menu_item_title">Sort</string>
     <string name="search_view_changer_menu_item_title">Change view</string>
-    
+
     // Product details
     <string name="details_title_temp">Title</string>
     <string name="details_price_temp">$0.00</string>

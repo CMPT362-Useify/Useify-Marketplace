@@ -1,4 +1,4 @@
-package com.sfu.useify.ui.signup
+package com.sfu.useify.ui.authentication.signup
 
 import android.app.Activity
 import android.content.Intent
