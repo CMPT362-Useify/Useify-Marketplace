@@ -9,10 +9,15 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.net.Uri
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
+import android.widget.ImageView
+import android.widget.RelativeLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import java.io.File
 import java.io.FileOutputStream
+import java.util.concurrent.Executors
 
 object Util {
     fun checkPermissions(activity: Activity?) {
@@ -60,5 +65,31 @@ object Util {
         val tempImgFile = File(context.getExternalFilesDir(null), mTempImgName)
         tempImgFile.delete()
     }
+
+    fun loadImgInView(imgUrl: String, mImageView: ImageView) {
+        val executor = Executors.newSingleThreadExecutor()
+        val handler = Handler(Looper.getMainLooper())
+        var image: Bitmap? = null
+        executor.execute {
+            val imageURL = imgUrl
+            try {
+                val `in` = java.net.URL(imageURL).openStream()
+                image = BitmapFactory.decodeStream(`in`)
+                // Only for making changes in UI
+                handler.post {
+                    mImageView.setImageBitmap(image)
+                }
+
+                val params = RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT
+                )
+                mImageView.setLayoutParams(params)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
 
 }

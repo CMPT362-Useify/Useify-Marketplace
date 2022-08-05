@@ -8,21 +8,22 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Spinner
-import android.widget.Toast
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import android.widget.*
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.lifecycle.MutableLiveData
 import com.sfu.useify.MainActivity
 import com.sfu.useify.R
 import com.sfu.useify.Util
 import com.sfu.useify.database.productsViewModel
 import com.sfu.useify.models.Product
 import java.io.File
+
 
 class AddEditProductActivity : AppCompatActivity() {
 
@@ -32,6 +33,13 @@ class AddEditProductActivity : AppCompatActivity() {
     private lateinit var descriptionET: EditText
     private lateinit var pickUpLoctionET: EditText
     private lateinit var categorySelect: Spinner
+    private lateinit var pageTitle: TextView
+
+    // buttons
+    private lateinit var deleteBtn: Button
+    private lateinit var addProductBtn: Button
+    private lateinit var updateProductBtn: Button
+
 
     // TODO: get images and seller ID
     private var sellerID = "0"
@@ -49,9 +57,11 @@ class AddEditProductActivity : AppCompatActivity() {
     private val mProductName = "my_profile.jpg"
     private lateinit var mProductImgUri: Uri
     private lateinit var bitmap: Bitmap
+    private var productId = ""
 
     // Models
     val productsViewModel = productsViewModel();
+    lateinit var myProduct: MutableLiveData<Product>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,10 +70,58 @@ class AddEditProductActivity : AppCompatActivity() {
         //get products input fields
         initializeFields()
 
+        // get product ID from intent
+        val extras = intent.extras
+        if (extras != null) {
+            // edit item
+            addProductBtn.visibility = GONE
+            deleteBtn.visibility = VISIBLE
+            updateProductBtn.visibility = VISIBLE
+            pageTitle.text = "Edit Product"
+
+            productId = extras.getString("productIdKey", "")
+            myProduct = productsViewModel.getProductByID(productId)
+
+            myProduct.observe(this) {
+                if (it != null) {
+                    setProductinView(it)
+                }
+            }
+        } else {
+            //add new
+            pageTitle.text = "Add a Product"
+            deleteBtn.visibility = GONE
+            updateProductBtn.visibility = GONE
+            addProductBtn.visibility = VISIBLE
+        }
+
         // Photo widget setup
         productImgSetUp(savedInstanceState)
 
+    }
 
+    private fun setProductinView(product: Product) {
+        titleET.setText(product.name)
+        priceET.setText(product.price.toString())
+        descriptionET.setText(product.description)
+
+        categorySelect.setSelection(getIndex(categorySelect, product.category));
+
+        var imgUrl = product.image
+        if (imgUrl !== "") {
+//            Util.loadImgInView(imgUrl, mImageView)
+
+        }
+    }
+
+    private fun getIndex(spinner: Spinner, category: String): Int {
+        var index = 0
+        for (i in 0 until spinner.getCount()) {
+            if (spinner.getItemAtPosition(i).equals(category)) {
+                index = i
+            }
+        }
+        return index
     }
 
     private fun initializeFields() {
@@ -73,6 +131,10 @@ class AddEditProductActivity : AppCompatActivity() {
         pickUpLoctionET = findViewById(R.id.productLocationEt)
         categorySelect = findViewById(R.id.categorySpinner)
         mImageView = findViewById(R.id.productImgIv)
+        deleteBtn = findViewById(R.id.deleteBtn)
+        addProductBtn = findViewById(R.id.addProductBtn)
+        pageTitle = findViewById(R.id.addProductTv)
+        updateProductBtn = findViewById(R.id.updateProductBtn)
     }
 
     private fun setPrpductImg(imgName: String, imgUri: Uri) {
@@ -140,9 +202,7 @@ class AddEditProductActivity : AppCompatActivity() {
 
     fun onAddNewProductClicked(view: View) {
 
-        Toast.makeText(this, "product img " + mProductImgUri, Toast.LENGTH_LONG).show()
-
-        val newProduct = Product(
+        val mProduct = Product(
             titleET.text.toString(),
             priceET.text.toString().toDouble(),
             imgUrl,
@@ -152,20 +212,44 @@ class AddEditProductActivity : AppCompatActivity() {
             pickupLat,
             pickupLong
         )
-        productsViewModel.addProductWithPhoto(newProduct, bitmap)
-//        productsViewModel.addProduct(newProduct)
+        productsViewModel.addProductWithPhoto(mProduct, bitmap)
 
         Toast.makeText(this, "new product added", Toast.LENGTH_LONG).show()
 
         // back to main page
         val intent = Intent(applicationContext, MainActivity::class.java)
         startActivity(intent)
-
     }
 
     fun onCancelProductClicked(view: View) {
         Util.deleteImg(this, mTempImgName)
         finish()
+    }
+
+    fun onDeleteProductClicked(view: View) {
+        if(productId !== ""){
+            Toast.makeText(this, "remove product Id: " + productId, Toast.LENGTH_LONG).show()
+            productsViewModel.deleteProduct(productId)
+            finish()
+        }
+    }
+
+    fun onUpdateProductClicked(view: View) {
+        val mProduct = Product(
+            titleET.text.toString(),
+            priceET.text.toString().toDouble(),
+            imgUrl,
+            descriptionET.text.toString(),
+            sellerID,
+            categorySelect.selectedItem.toString(),
+            pickupLat,
+            pickupLong
+        )
+        if(productId !== ""){
+            productsViewModel.updateProduct(productId,mProduct)
+            Toast.makeText(this, "product updated", Toast.LENGTH_LONG).show()
+            finish()
+        }
     }
 }
 
