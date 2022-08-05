@@ -27,6 +27,7 @@ data class Product (
             "sellerID" to sellerID,
             "category" to category,
             "pickupLat" to pickupLat,
-            "pickupLong" to pickupLong)
+            "pickupLong" to pickupLong,
+            "createAt" to createAt)
     }
 }
