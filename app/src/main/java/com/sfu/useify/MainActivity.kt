@@ -22,11 +22,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val conversationsViewModel = conversationsViewModel()
-        conversationsViewModel.getOrAddNewConversation("0123", "0","1").observe(this,{
-            println("debug: " + it)
-        })
-
     }
 
     fun changeTheme(view: View){
