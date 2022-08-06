@@ -17,21 +17,33 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.common.api.Status
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.widget.Autocomplete
+import com.google.android.libraries.places.widget.AutocompleteActivity
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.sfu.useify.MainActivity
 import com.sfu.useify.R
 import com.sfu.useify.Util
 import com.sfu.useify.database.productsViewModel
 import com.sfu.useify.models.Product
 import java.io.File
+import java.util.*
 
 
 class AddEditProductActivity : AppCompatActivity() {
+
+    private val AUTOCOMPLETE_REQUEST_CODE: Int = 1
 
     // editText fields
     private lateinit var titleET: EditText
     private lateinit var priceET: EditText
     private lateinit var descriptionET: EditText
     private lateinit var pickUpLoctionET: EditText
+//    private lateinit var pickUpLoctionET: AutoCompleteTextView
     private lateinit var categorySelect: Spinner
     private lateinit var pageTitle: TextView
 
@@ -95,10 +107,49 @@ class AddEditProductActivity : AppCompatActivity() {
             addProductBtn.visibility = VISIBLE
         }
 
+        setupLocationAutocomplete()
+
         // Photo widget setup
         productImgSetUp(savedInstanceState)
 
     }
+
+    fun onLocationClicked(view: View) {
+        // Add address fields that you need from the autocomplete fragment
+        val fields: List<Place.Field> = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field
+            .ADDRESS)
+        val intent =
+            Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields).build(this)
+        startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE)
+    }
+
+    private fun setupLocationAutocomplete() {
+        pickUpLoctionET.isEnabled = false
+        Places.initialize(applicationContext, "AIzaSyD3txXQ3Nz2SSWvm-Ay6PKzaRbX_bpUwcw")
+        val placesApi = Places.createClient(this)
+    }
+
+    //
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
+            when (resultCode) {
+                RESULT_OK -> {
+                    val place = Autocomplete.getPlaceFromIntent(data)
+                    println("Debug: Place = " + place.name + ", "+ place.address)
+                    pickUpLoctionET.setText("${place.name}")
+                }
+                AutocompleteActivity.RESULT_ERROR -> {
+                    val status: Status = Autocomplete.getStatusFromIntent(data)
+                    println("Debug: " + status.statusMessage)
+                }
+                RESULT_CANCELED -> {
+                    // The user canceled the operation.
+                }
+            }
+        }
+    }
+
 
     private fun setProductinView(product: Product) {
         titleET.setText(product.name)

@@ -101,11 +101,18 @@
 
             <EditText
                 android:id="@+id/productLocationEt"
+                android:onClick="onLocationClicked"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"/>
 
+            <Button
+                android:id="@+id/productLocationBtn"
+                android:text="Add Location"
+                android:onClick="onLocationClicked"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
 
             <ImageView
                 android:id="@+id/productImgIv"
