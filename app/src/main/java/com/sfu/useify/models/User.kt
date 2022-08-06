@@ -12,7 +12,9 @@ data class User (
     var avatar:String? = "",
     var email: String? = "",
     var phoneNumber: String? = "",
-    var address: String? = ""
+    var address: String? = "",
+    var conversations: List<String> = emptyList(),
+    var savedProducts: List<String> = emptyList(),
 ){
     @Exclude
     fun toMap(): Map<String, Any?>{
@@ -24,7 +26,9 @@ data class User (
             "avatar" to avatar,
             "email" to email,
             "phoneNumber" to phoneNumber,
-            "address" to address
+            "address" to address,
+            "conversations" to conversations,
+            "savedProducts" to savedProducts
         )
     }
 }
