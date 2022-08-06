@@ -8,7 +8,7 @@ data class Conversation(
     var conversationID: String="",
     var productID: String = "",
     var senderIDs: List<String> = emptyList(), //contain 2 strings of 2 people in the conversation
-    var messages: List<Message> = emptyList(),
+    var messages: Map<String,Message> = emptyMap(),
     var lastMessage: Message? = null,
 
 ){

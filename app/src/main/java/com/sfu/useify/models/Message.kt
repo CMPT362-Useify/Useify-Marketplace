@@ -5,8 +5,8 @@ import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
 data class Message (
-    var content: String,
-    var senderID: String,
+    var content: String = "",
+    var senderID: String ="",
     var sentAt: Long = System.currentTimeMillis(),    //This createAt is saved in the form of Unix timestamp , need to convert DateTime
     var messageID: String="" ,
 ){
