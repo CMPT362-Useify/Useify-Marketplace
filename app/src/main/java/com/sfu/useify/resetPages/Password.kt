@@ -38,13 +38,11 @@ class Password : AppCompatActivity(){
                 auth.currentUser?.updatePassword(newPassword)
                     ?.addOnCompleteListener(this, OnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            Toast.makeText(this, "Password changes successfully", Toast.LENGTH_LONG)
-                                .show()
+                            Toast.makeText(this, "Password changes successfully", Toast.LENGTH_LONG).show()
                             val intent : Intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
                         } else {
-                            Toast.makeText(this, "password not changed", Toast.LENGTH_LONG)
-                                .show()
+                            Toast.makeText(this, "Password not changed", Toast.LENGTH_LONG).show()
                         }
                     })
             }
