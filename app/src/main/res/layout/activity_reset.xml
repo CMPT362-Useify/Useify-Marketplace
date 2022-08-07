@@ -58,7 +58,7 @@
             android:textColorLink="#0821AE"
             android:onClick="onResetPassword"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/submit_button"
+            app:layout_constraintEnd_toStartOf="@+id/submit_reset_email_button"
             app:layout_constraintHorizontal_bias="0.532"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
@@ -82,7 +82,7 @@
             app:layout_constraintTop_toBottomOf="@+id/reset_password" />
 
         <EditText
-            android:id="@+id/edit_email"
+            android:id="@+id/edit_reset_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -112,11 +112,11 @@
             app:layout_constraintBottom_toTopOf="@+id/back_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_email"
+            app:layout_constraintTop_toBottomOf="@+id/edit_reset_email"
             app:srcCompat="@drawable/logo" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/submit_button"
+            android:id="@+id/submit_reset_email_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
