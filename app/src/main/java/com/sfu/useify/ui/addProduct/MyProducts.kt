@@ -2,6 +2,7 @@ package com.sfu.useify.ui.addProduct
 
 import android.os.Bundle
 import android.widget.ListView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import com.sfu.useify.R
@@ -67,5 +68,7 @@ class MyProducts: AppCompatActivity() {
             MyProductAdapter(this, idsList, titlesList, pricesList, descList, imagesList)
         mProductsLv.adapter = mProductAdapter
     }
+
+
 
 }

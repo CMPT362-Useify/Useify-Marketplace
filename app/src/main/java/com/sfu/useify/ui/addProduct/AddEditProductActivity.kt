@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
+import android.location.Geocoder
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -22,14 +23,13 @@ import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.sfu.useify.MainActivity
 import com.sfu.useify.R
 import com.sfu.useify.Util
 import com.sfu.useify.database.productsViewModel
 import com.sfu.useify.models.Product
+import com.squareup.picasso.Picasso
 import java.io.File
 import java.util.*
 
@@ -116,8 +116,10 @@ class AddEditProductActivity : AppCompatActivity() {
 
     fun onLocationClicked(view: View) {
         // Add address fields that you need from the autocomplete fragment
-        val fields: List<Place.Field> = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field
-            .ADDRESS)
+        val fields: List<Place.Field> = Arrays.asList(
+            Place.Field.ID, Place.Field.NAME, Place.Field
+                .ADDRESS, Place.Field.LAT_LNG
+        )
         val intent =
             Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields).build(this)
         startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE)
@@ -136,8 +138,12 @@ class AddEditProductActivity : AppCompatActivity() {
             when (resultCode) {
                 RESULT_OK -> {
                     val place = Autocomplete.getPlaceFromIntent(data)
-                    println("Debug: Place = " + place.name + ", "+ place.address)
+                    println("Debug: Place = " + place.name + ", " + place.address)
+                    println("Debug: Place ** lat = " + place.latLng.latitude)
+                    println("Debug: Place ** LNG = " + place.latLng.longitude)
                     pickUpLoctionET.setText("${place.name}")
+                    pickupLat = place.latLng.latitude
+                    pickupLong = place.latLng.longitude
                 }
                 AutocompleteActivity.RESULT_ERROR -> {
                     val status: Status = Autocomplete.getStatusFromIntent(data)
@@ -158,10 +164,27 @@ class AddEditProductActivity : AppCompatActivity() {
 
         categorySelect.setSelection(getIndex(categorySelect, product.category));
 
-        var imgUrl = product.image
-        if (imgUrl !== "") {
-//            Util.loadImgInView(imgUrl, mImageView)
+        // load pick up location
+        val geocoder = Geocoder(this, Locale.getDefault())
+        val addresses = geocoder.getFromLocation(product.pickupLat, product.pickupLong, 1)
+        if (addresses.size == 0){
+            pickUpLoctionET.setText( "No valid location provided")
+            return
+        }
+        val address = addresses[0]
+        var addressString: String = ""
+        for (i in 0 .. address.maxAddressLineIndex)
+            addressString += address.getAddressLine(i)
 
+        pickUpLoctionET.setText(addressString)
+        pickupLat = product.pickupLat
+        pickupLong = product.pickupLong
+        productId = product.productID
+
+        // load image
+        var imgUrl = product.image
+        if (imgUrl != "") {
+            Picasso.get().load(imgUrl).resize(800,0).placeholder(R.drawable.ic_baseline_image_500).into(mImageView)
         }
     }
 
@@ -210,7 +233,6 @@ class AddEditProductActivity : AppCompatActivity() {
         ) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
                 setPrpductImg(mTempImgName, mTempImgUri)
-
 
             }
         }
@@ -278,7 +300,7 @@ class AddEditProductActivity : AppCompatActivity() {
     }
 
     fun onDeleteProductClicked(view: View) {
-        if(productId !== ""){
+        if (productId != "") {
             Toast.makeText(this, "remove product Id: " + productId, Toast.LENGTH_LONG).show()
             productsViewModel.deleteProduct(productId)
             finish()
@@ -286,18 +308,20 @@ class AddEditProductActivity : AppCompatActivity() {
     }
 
     fun onUpdateProductClicked(view: View) {
-        val mProduct = Product(
-            titleET.text.toString(),
-            priceET.text.toString().toDouble(),
-            imgUrl,
-            descriptionET.text.toString(),
-            sellerID,
-            categorySelect.selectedItem.toString(),
-            pickupLat,
-            pickupLong
-        )
-        if(productId !== ""){
-            productsViewModel.updateProduct(productId,mProduct)
+
+        if (productId != "") {
+            val mProduct = Product(
+                titleET.text.toString(),
+                priceET.text.toString().toDouble(),
+                imgUrl,
+                descriptionET.text.toString(),
+                sellerID,
+                categorySelect.selectedItem.toString(),
+                pickupLat,
+                pickupLong,
+                productId
+            )
+            productsViewModel.updateProduct(productId, mProduct)
             Toast.makeText(this, "product updated", Toast.LENGTH_LONG).show()
             finish()
         }
