@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.*
 import com.sfu.useify.models.Conversation
 import com.sfu.useify.models.Message
-import com.sfu.useify.models.Product
 
 class conversationsViewModel {
 
@@ -13,27 +12,55 @@ class conversationsViewModel {
     private val databaseReference = database.getReference("Conversations")
 
     private var conversation:MutableLiveData<Conversation> = MutableLiveData()
-    private  var messages:MutableLiveData<List<Message>> = MutableLiveData()
+    private var conversationByID:MutableLiveData<Conversation> = MutableLiveData()
+    private var messages:MutableLiveData<List<Message>> = MutableLiveData()
 
-    //Must be called as soon as possible, ideally inside onCreate of the activity,
-    //this function can make sure the conversation exists before you add message or do other things with the conversation
+//    //Must be called as soon as possible, ideally inside onCreate of the activity,
+//    //this function can make sure the conversation exists before you add message or do other things with the conversation
+//    fun getOrAddNewConversation(productId: String, userId: String, sellerID: String): MutableLiveData<Conversation> {
+//        databaseReference.orderByChild("productID").equalTo(productId).addValueEventListener(object :ValueEventListener{
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                if(snapshot.exists()){
+//                    val ret_conversation = snapshot.children.mapNotNull {
+//                        it.getValue(Conversation::class.java) }.toList()[0]
+//                    conversation.postValue(ret_conversation)
+//                } else{
+//                    val newConversationRef = databaseReference.push()
+//                    val senderIDs: List<String> = listOf(sellerID, userId)
+//                    val newConversation = Conversation(newConversationRef.key.toString(), productId,  senderIDs)
+//                    newConversationRef.setValue(newConversation).addOnSuccessListener {
+//                        Log.i("firebase", "Successfully added new conversation")
+//                        conversation.postValue(newConversation)
+//                    }.addOnFailureListener {
+//                        Log.i("firebase","Error adding new conversation", it)
+//                    }
+//                }
+//            }
+//            override fun onCancelled(error: DatabaseError) {
+//            }
+//        })
+//        return conversation
+//    }
+
     fun getOrAddNewConversation(productId: String, userId: String, sellerID: String): MutableLiveData<Conversation> {
         databaseReference.orderByChild("productID").equalTo(productId).addValueEventListener(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
-                    val ret_conversation = snapshot.children.mapNotNull {
-                        it.getValue(Conversation::class.java) }.toList()[0]
-                    conversation.postValue(ret_conversation)
-                } else{
-                    val newConversationRef = databaseReference.push()
-                    val senderIDs: List<String> = listOf(sellerID, userId)
-                    val newConversation = Conversation(newConversationRef.key.toString(), productId,  senderIDs)
-                    newConversationRef.setValue(newConversation).addOnSuccessListener {
-                        Log.i("firebase", "Successfully added new conversation")
-                        conversation.postValue(newConversation)
-                    }.addOnFailureListener {
-                        Log.i("firebase","Error adding new conversation", it)
+                    var ret_conversation : Conversation? = null
+                    val conversationList = snapshot.children.mapNotNull {
+                        it.getValue(Conversation::class.java) }.toList()
+                    conversationList.forEach {
+                        if (it.senderIDs.contains(userId)){
+                            ret_conversation = it
+                        }
                     }
+                    if (ret_conversation!=null){
+                        conversation.postValue(ret_conversation)
+                    } else {
+                        addConversation(productId, userId, sellerID)
+                    }
+                } else{
+                    addConversation(productId, userId, sellerID)
                 }
             }
             override fun onCancelled(error: DatabaseError) {
@@ -42,6 +69,17 @@ class conversationsViewModel {
         return conversation
     }
 
+    private fun addConversation(productId: String, userId: String, sellerID: String) {
+        val newConversationRef = databaseReference.push()
+        val senderIDs: List<String> = listOf(sellerID, userId)
+        val newConversation = Conversation(newConversationRef.key.toString(), productId,  senderIDs)
+        newConversationRef.setValue(newConversation).addOnSuccessListener {
+            Log.i("firebase", "Successfully added new conversation")
+            conversation.postValue(newConversation)
+        }.addOnFailureListener {
+            Log.i("firebase","Error adding new conversation", it)
+        }
+    }
 
     fun addMessageByProductID(message: Message, productId: String){
         databaseReference.orderByChild("productID").equalTo(productId).addListenerForSingleValueEvent(object :ValueEventListener{
@@ -99,6 +137,22 @@ class conversationsViewModel {
             }
         })
         return messages
+    }
+
+    fun getconversationByID(conversationID: String): MutableLiveData<Conversation> {
+        databaseReference.child(conversationID).addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    val ret_conversation = snapshot.getValue(Conversation::class.java)
+                    conversationByID.postValue(ret_conversation)
+                } else{
+                    Log.e("firebase", "this conversation does not exist")
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+        return conversationByID
     }
 
     //Helper function

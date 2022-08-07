@@ -14,6 +14,7 @@ import com.sfu.useify.ui.addProduct.AddProductActivity
 import com.sfu.useify.ui.addProduct.MyProducts
 import com.sfu.useify.ui.browse.BrowseActivity
 import com.sfu.useify.ui.categories.SearchCategoriesActivity
+import com.sfu.useify.ui.chat.ChatMenuActivity
 import com.sfu.useify.ui.productDetails.ProductDetailActivity
 import com.sfu.useify.ui.authentication.signup.SignupActivity
 
@@ -40,10 +41,11 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun onDetailsClicked(view: View) {
-        val intent = Intent(this, ProductDetailActivity::class.java)
+    fun onInboxClicked(view: View) {
+        val intent = Intent(this, ChatMenuActivity::class.java)
         startActivity(intent)
     }
+
 
 
     fun onSignUpClicked(view : View){

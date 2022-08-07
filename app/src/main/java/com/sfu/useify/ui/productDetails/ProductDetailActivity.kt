@@ -10,17 +10,23 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
+import androidx.lifecycle.Observer
 import com.sfu.useify.R
+import com.sfu.useify.Util
 import com.sfu.useify.Util.calculateTimeSincePosted
 import com.sfu.useify.database.productsViewModel
+import com.sfu.useify.database.usersViewModel
 import com.sfu.useify.models.Product
 import com.sfu.useify.ui.chat.ChatActivity
 import com.squareup.picasso.Picasso
+import java.lang.Exception
 import java.util.*
 
 class ProductDetailActivity: AppCompatActivity() {
+    private lateinit var usersViewModel: usersViewModel
     private lateinit var productsViewModel: productsViewModel
     private lateinit var titleTextView: TextView
     private lateinit var priceTextView: TextView
@@ -29,7 +35,8 @@ class ProductDetailActivity: AppCompatActivity() {
     private lateinit var sellerIdTextView: TextView
     private lateinit var locationTextView: TextView
     private lateinit var productImageView: ImageView
-
+    private var productID: String? = null
+    private var mUserID: String? = null
     private var product: Product? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,18 +58,20 @@ class ProductDetailActivity: AppCompatActivity() {
         productImageView = findViewById<ImageView>(R.id.imageview_product_details_photo)
 
 
-        // Setup ViewModel and get productID
+        // Setup ViewModels and get productID
         val bundle: Bundle? = intent.extras
+        usersViewModel = usersViewModel()
         productsViewModel = productsViewModel()
-        val productID = bundle?.getString(resources.getString(R.string.key_product_clicked))
+        productID = bundle?.getString(resources.getString(R.string.key_product_clicked))
+        mUserID = Util.getUserID()
 
 
         // Get product item
         if (productID != null){
-            productsViewModel.getProductByID(productID).observe(this) {
+            productsViewModel.getProductByID(productID!!).observe(this) {
                 updateProductDetails(it)
             }
-        }else {
+        } else {
             // TODO: Show 'error: product not found' in some way
         }
     }
@@ -75,8 +84,14 @@ class ProductDetailActivity: AppCompatActivity() {
         descriptionTextView.text = newProduct.description
         priceTextView.text = String.format("$%.2f", newProduct.price)
         dateTextView.text = calculateTimeSincePosted(newProduct.createAt)
-        sellerIdTextView.text = newProduct.sellerID
-        Picasso.get().load(newProduct.image).into(productImageView)        // Setup location TextView link (to GMaps)
+        usersViewModel.getUserByID(newProduct.sellerID).observe(this, Observer {
+            sellerIdTextView.text = it.username
+        })
+        try {
+            Picasso.get().load(newProduct.image).into(productImageView)        // Setup location TextView link (to GMaps)
+        } catch (e: Exception){
+            println("Debug: exception = $e")
+        }
         updateLocation(newProduct.pickupLat, newProduct.pickupLong)
     }
 
@@ -106,6 +121,7 @@ class ProductDetailActivity: AppCompatActivity() {
     }
 
     private fun onLocationClicked(view: View, latitude: Double, longitude: Double){
+        // TODO: Replace with address instead of coordinates
         val gmmIntentUri: Uri = Uri.parse("http://maps.google.com/maps?q=loc:$latitude,$longitude")
         val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
         mapIntent.setPackage("com.google.android.apps.maps")
@@ -128,18 +144,23 @@ class ProductDetailActivity: AppCompatActivity() {
     }
 
     private fun onSharePressed() {
-        // TODO("implement a share button")
+        // TODO: Implement a share button
     }
 
     // Start chat intent with seller regarding given product
     fun onChatClicked(view: View){
-        if (product == null)
+        if (product == null || productID == null)
             return
-        val intent = Intent(this, ChatActivity::class.java)
-        val bundle = Bundle()
-        bundle.putString(resources.getString(R.string.key_chat_seller_id), product!!.sellerID)
-        bundle.putString(resources.getString(R.string.key_chat_product_id), product!!.productID)
-        intent.putExtras(bundle)
-        startActivity(intent)
+        val sellerID = product!!.sellerID
+        if (mUserID != sellerID){
+            val intent = Intent(this, ChatActivity::class.java)
+            val bundle = Bundle()
+            bundle.putString(resources.getString(R.string.key_chat_other_user_id), sellerID)
+            bundle.putString(resources.getString(R.string.key_chat_product_id), product!!.productID)
+            intent.putExtras(bundle)
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, "This is your post!", Toast.LENGTH_SHORT).show()
+        }
     }
 }

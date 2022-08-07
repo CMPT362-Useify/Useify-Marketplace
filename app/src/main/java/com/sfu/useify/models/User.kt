@@ -11,8 +11,8 @@ data class User (
     var email: String? = "",
     var phoneNumber: String? = "",
     var address: String? = "",
-    var conversations: List<String> = emptyList(),
-    var savedProducts: List<String> = emptyList(),
+    var conversations: Map<String,String> = emptyMap(),
+    var savedProducts: Map<String,String> = emptyMap(),
     var userID:String? ="",
     var avatar:String? = "",
 
