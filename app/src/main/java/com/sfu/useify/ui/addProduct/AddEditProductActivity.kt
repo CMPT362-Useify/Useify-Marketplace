@@ -70,6 +70,7 @@ class AddEditProductActivity : AppCompatActivity() {
     private lateinit var mProductImgUri: Uri
     private lateinit var bitmap: Bitmap
     private var productId = ""
+    private var isImageChanged = false
 
     // Models
     val productsViewModel = productsViewModel();
@@ -192,6 +193,8 @@ class AddEditProductActivity : AppCompatActivity() {
         if (File(getExternalFilesDir(null), imgName).exists()) {
             bitmap = Util.getBitmap(this, imgUri)
             mImageView.setImageBitmap(bitmap)
+            isImageChanged = true
+
         }
     }
 
@@ -297,9 +300,15 @@ class AddEditProductActivity : AppCompatActivity() {
             pickupLong
         )
         if(productId !== ""){
-            productsViewModel.updateProduct(productId,mProduct)
-            Toast.makeText(this, "product updated", Toast.LENGTH_LONG).show()
-            finish()
+            if (isImageChanged){
+                productsViewModel.updateProductWithPhoto(productId,mProduct, bitmap)
+                Toast.makeText(this, "product updated", Toast.LENGTH_LONG).show()
+                finish()
+            } else {
+                productsViewModel.updateProduct(productId, mProduct)
+                Toast.makeText(this, "product updated", Toast.LENGTH_LONG).show()
+                finish()
+            }
         }
     }
 }
