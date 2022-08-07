@@ -40,6 +40,14 @@ class LoginActivity : AppCompatActivity() {
 
         resetPasswordTv = findViewById(R.id.reset_pass_tv)
 
+        val currentUser = auth.currentUser
+        if(currentUser != null){
+            val intent = Intent(this, MainActivity::class.java)
+            println("debug: Logged in already" )
+            startActivity(intent)
+            finish()
+        }
+
         loginBtn.setOnClickListener {
             var email: String = emailEditText.text.toString()
             var password: String = passwordEditText.text.toString()
@@ -62,8 +70,12 @@ class LoginActivity : AppCompatActivity() {
         signupBtn.setOnClickListener{
             val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
-            finish()
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finishAffinity()
     }
 
 

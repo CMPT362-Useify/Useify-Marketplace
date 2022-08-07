@@ -76,5 +76,6 @@
     <string name="chat_username_default">Username</string>
     <string name="chat_new_message_textview_hint">Type a message...</string>
     <string name="signup_password">Password</string>
+    <string name="logout">Sign out</string>
 
 </resources>

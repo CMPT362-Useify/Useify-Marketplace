@@ -5,17 +5,19 @@ import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
 data class User (
-    var userID:String? ="",
     var username: String? = "",
     var firstName: String? = "",
     var lastName: String? = "",
-    var avatar:String? = "",
     var email: String? = "",
     var phoneNumber: String? = "",
     var address: String? = "",
     var conversations: List<String> = emptyList(),
     var savedProducts: List<String> = emptyList(),
-){
+    var userID:String? ="",
+    var avatar:String? = "",
+
+
+    ){
     @Exclude
     fun toMap(): Map<String, Any?>{
         return mapOf(

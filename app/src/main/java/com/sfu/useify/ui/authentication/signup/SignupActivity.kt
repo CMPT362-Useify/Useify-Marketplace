@@ -133,13 +133,17 @@ class SignupActivity : AppCompatActivity() {
         //userViewModel.addUser(newUser, "1")
         println("debug: pw = " + passw + " email= " +email)
         auth.createUserWithEmailAndPassword(email, passw).addOnCompleteListener(this, OnCompleteListener { task ->
-            if (task.isSuccessful) {
+            if (task.isSuccessful ) {
+                val user = auth.currentUser
+                val userID = user?.uid.toString()
+                userViewModel.addUser(newUser, userID)
+                println("debug: " + userID.toString())
                 Toast.makeText(this, "Successfully Registered", Toast.LENGTH_LONG).show()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
-                val user = auth.currentUser
-                println("debug: " + user..toString())
+
+
             }
         })
 
