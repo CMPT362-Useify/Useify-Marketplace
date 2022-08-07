@@ -2,19 +2,15 @@ package com.sfu.useify.ui.addProduct
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-import androidx.core.content.ContextCompat.startActivity
+import android.widget.BaseAdapter
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
 import com.sfu.useify.R
-import com.sfu.useify.Util
 import com.sfu.useify.ui.productDetails.ProductDetailActivity
 import com.squareup.picasso.Picasso
-import java.util.concurrent.Executors
 
 class MyProductAdapter(
     val context: Context,
@@ -58,7 +54,6 @@ class MyProductAdapter(
         var imgUrl = imagesList[position]
         if (imgUrl != "") {
             Picasso.get().load(imgUrl).resize(250,0).centerCrop().placeholder(R.drawable.ic_baseline_image_500).into(imgIV)
-            //Util.loadImgInView(imgUrl, imgIV)
         }
 
         viewItemBtn.setOnClickListener {

@@ -47,6 +47,12 @@ class MyProducts: AppCompatActivity() {
         myProductsList.observe(this) {
             val myProduct: List<Product>? = it
             if (myProduct != null) {
+                idsList.clear()
+                titlesList.clear()
+                descList.clear()
+                pricesList.clear()
+                imagesList.clear()
+
                 for (product in myProduct) {
                     idsList.add(product.productID)
                     titlesList.add(product.name)
