@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat.startActivity
 import com.sfu.useify.R
 import com.sfu.useify.Util
 import com.sfu.useify.ui.productDetails.ProductDetailActivity
+import com.squareup.picasso.Picasso
 import java.util.concurrent.Executors
 
 class MyProductAdapter(
@@ -48,18 +49,16 @@ class MyProductAdapter(
         val viewItemBtn = view.findViewById(R.id.viewItem) as ImageButton
         val editItemBtn = view.findViewById(R.id.editItem) as ImageButton
 
+        var productID = idsList[position]
         titleTV?.text = titleList[position]
         priceTV?.text = "$" + pricesList[position]
         descriptionTV?.text = descList[position]
-        var productID = idsList[position]
 
         //set image
         var imgUrl = imagesList[position]
-        val executor = Executors.newSingleThreadExecutor()
-        val handler = Handler(Looper.getMainLooper())
-        var image: Bitmap? = null
-        if (imgUrl !== "") {
-            Util.loadImgInView(imgUrl, imgIV)
+        if (imgUrl != "") {
+            Picasso.get().load(imgUrl).resize(250,0).centerCrop().placeholder(R.drawable.ic_baseline_image_500).into(imgIV)
+            //Util.loadImgInView(imgUrl, imgIV)
         }
 
         viewItemBtn.setOnClickListener {

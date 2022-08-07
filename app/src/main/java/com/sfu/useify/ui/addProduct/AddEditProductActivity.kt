@@ -70,7 +70,6 @@ class AddEditProductActivity : AppCompatActivity() {
     private lateinit var mProductImgUri: Uri
     private lateinit var bitmap: Bitmap
     private var productId = ""
-    private var isImageChanged = false
 
     // Models
     val productsViewModel = productsViewModel();
@@ -193,8 +192,6 @@ class AddEditProductActivity : AppCompatActivity() {
         if (File(getExternalFilesDir(null), imgName).exists()) {
             bitmap = Util.getBitmap(this, imgUri)
             mImageView.setImageBitmap(bitmap)
-            isImageChanged = true
-
         }
     }
 
@@ -289,26 +286,22 @@ class AddEditProductActivity : AppCompatActivity() {
     }
 
     fun onUpdateProductClicked(view: View) {
-        val mProduct = Product(
-            titleET.text.toString(),
-            priceET.text.toString().toDouble(),
-            imgUrl,
-            descriptionET.text.toString(),
-            sellerID,
-            categorySelect.selectedItem.toString(),
-            pickupLat,
-            pickupLong
-        )
-        if(productId !== ""){
-            if (isImageChanged){
-                productsViewModel.updateProductWithPhoto(productId,mProduct, bitmap)
-                Toast.makeText(this, "product updated", Toast.LENGTH_LONG).show()
-                finish()
-            } else {
-                productsViewModel.updateProduct(productId, mProduct)
-                Toast.makeText(this, "product updated", Toast.LENGTH_LONG).show()
-                finish()
-            }
+
+        if (productId != "") {
+            val mProduct = Product(
+                titleET.text.toString(),
+                priceET.text.toString().toDouble(),
+                imgUrl,
+                descriptionET.text.toString(),
+                sellerID,
+                categorySelect.selectedItem.toString(),
+                pickupLat,
+                pickupLong,
+                productId
+            )
+            productsViewModel.updateProduct(productId, mProduct)
+            Toast.makeText(this, "product updated", Toast.LENGTH_LONG).show()
+            finish()
         }
     }
 }
