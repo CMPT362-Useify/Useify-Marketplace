@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.sfu.useify.MainActivity
 import com.sfu.useify.R
+import com.sfu.useify.resetPages.ResetPassword
 import com.sfu.useify.ui.authentication.signup.SignupActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -69,6 +70,10 @@ class LoginActivity : AppCompatActivity() {
         }
         signupBtn.setOnClickListener{
             val intent = Intent(this, SignupActivity::class.java)
+            startActivity(intent)
+        }
+        resetPasswordTv.setOnClickListener{
+            val intent = Intent(this, ResetPassword::class.java)
             startActivity(intent)
         }
     }

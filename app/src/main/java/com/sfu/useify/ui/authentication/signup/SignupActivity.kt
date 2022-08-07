@@ -6,6 +6,7 @@ import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -19,9 +20,11 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.sfu.useify.*
 import com.sfu.useify.database.usersViewModel
 import com.sfu.useify.models.User
+import com.sfu.useify.ui.authentication.login.LoginActivity
 import com.sfu.useify.ui.browse.BrowseActivity
 import java.io.File
 
@@ -136,6 +139,14 @@ class SignupActivity : AppCompatActivity() {
             if (task.isSuccessful ) {
                 val user = auth.currentUser
                 val userID = user?.uid.toString()
+                val profileUpdates = userProfileChangeRequest {
+                    displayName = newUser.username
+                }
+                user?.updateProfile(profileUpdates)?.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Log.d("firebase", "User profile updated.")
+                    }
+                }
                 userViewModel.addUser(newUser, userID)
                 println("debug: " + userID.toString())
                 Toast.makeText(this, "Successfully Registered", Toast.LENGTH_LONG).show()
@@ -151,7 +162,7 @@ class SignupActivity : AppCompatActivity() {
     }
 
     fun onSignupCancelClicked(view : View) {
-        val newScreen : Intent = Intent(this, MainActivity::class.java)
-        startActivity(newScreen)
+        val intent : Intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
     }
 }
