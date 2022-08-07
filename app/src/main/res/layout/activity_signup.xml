@@ -31,7 +31,7 @@
                     android:textSize="16sp" />
 
                 <EditText
-                    android:id="@+id/singup_user_name"
+                    android:id="@+id/signup_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
