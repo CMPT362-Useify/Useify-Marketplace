@@ -120,7 +120,7 @@ class ResultsActivity: AppCompatActivity() {
             return
         // Observe changes in entries list
         productsList.observe(this, Observer {
-            recyclerView.adapter = ResultsAdapter(it) { productID ->
+            resultsAdapter = ResultsAdapter(it) { productID ->
                 println("Debug: ProductID of product clicked = '$productID'")
                 val intent = Intent(this, ProductDetailActivity::class.java)
                 val bundle = Bundle()
@@ -128,6 +128,7 @@ class ResultsActivity: AppCompatActivity() {
                 intent.putExtras(bundle)
                 startActivity(intent)
             }
+            recyclerView.adapter = resultsAdapter
         })
     }
 
