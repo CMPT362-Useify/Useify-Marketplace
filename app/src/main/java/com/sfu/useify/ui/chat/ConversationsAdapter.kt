@@ -1,17 +1,12 @@
 package com.sfu.useify.ui.chat
 
-import android.content.Context
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.ktx.Firebase
 import com.sfu.useify.R
 import com.sfu.useify.Util
 import com.sfu.useify.database.conversationsViewModel
@@ -34,7 +29,6 @@ class ConversationsAdapter(private val owner: LifecycleOwner?,
             usernameTextView = view.findViewById(R.id.textview_conversation_username)
             titleTextView = view.findViewById(R.id.textview_conversation_product_title)
             timeTextView = view.findViewById(R.id.textview_conversation_time)
-            view.tag = this
             itemView.setOnClickListener {
                 onClickConversation(adapterPosition)
             }
@@ -44,8 +38,8 @@ class ConversationsAdapter(private val owner: LifecycleOwner?,
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConversationViewHolder {
         // Create a new view, which defines the UI of the conversation
         // and a clickListener from the activity
-        val viewHolder = ConversationViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.listview_conversation, parent, false)) {
-            println("Debug: $it")
+        val viewHolder = ConversationViewHolder(LayoutInflater.from(parent.context).
+        inflate(R.layout.listview_conversation, parent, false)) {
             onClickListener(conversations[it])
         }
 

@@ -6,7 +6,6 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +14,6 @@ import com.sfu.useify.Util
 import com.sfu.useify.database.conversationsViewModel
 import com.sfu.useify.database.productsViewModel
 import com.sfu.useify.database.usersViewModel
-import com.sfu.useify.models.Conversation
 import com.sfu.useify.models.Message
 import java.util.*
 
@@ -49,16 +47,11 @@ class ChatActivity: AppCompatActivity() {
 
         // Get bundle contents
         val bundle = intent.extras
-        getBundle(bundle)
-        println("Debug-chat: my user id = $mUserID, seller's id = $otherUserID, product id = $productID")
+        getBundleAndCreateAdapter(bundle)
+        println("Debug-chat: onCreate chat activity")
 
-        // Set username of conversation partner
-        usersViewModel.getUserByID(otherUserID!!).observe(this, Observer {
-            usernameTextView.text = it.username
-        })
-
-        setupObserverAndAdapter()
     }
+
 
     private fun setupView() {
         // Hide Action Bar
@@ -80,15 +73,36 @@ class ChatActivity: AppCompatActivity() {
 
 
     // Get bundle contents and set the respective variables
-    private fun getBundle(bundle: Bundle?) {
+    // Start observer and create adapter after
+    private fun getBundleAndCreateAdapter(bundle: Bundle?) {
         mUserID = Util.getUserID()
-        otherUserID = bundle?.getString(resources.getString(R.string.key_chat_other_user_id))
-        productID = bundle?.getString(resources.getString(R.string.key_chat_product_id))
+        val intentStartType = bundle?.getInt(resources.getString(R.string.key_chat_start_type))
+        if (intentStartType == 0){          // Called from chat inbox activity
+            conversationID = bundle?.getString(resources.getString(R.string.key_chat_conversation_id))
+            conversationsViewModel.getconversationByID(conversationID!!).observe(this, Observer {
+                productID = it.productID
+                for (i in it.senderIDs)
+                    if (i != mUserID)
+                        otherUserID = i
 
-        if (mUserID == null || otherUserID == null || productID == null){
-            // TODO: Handle error
-            finish()
+                getConversationPartnerUsername()
+                setupObserverAndAdapter()
+            })
+
+        } else if (intentStartType == 1) {  // Called from product details activity
+            otherUserID = bundle?.getString(resources.getString(R.string.key_chat_other_user_id))
+            productID = bundle?.getString(resources.getString(R.string.key_chat_product_id))
+
+            getConversationPartnerUsername()
+            setupObserverAndAdapter()
         }
+    }
+
+    // Get other chatter's username
+    private fun getConversationPartnerUsername(){
+        usersViewModel.getUserByID(otherUserID!!).observe(this, Observer {
+            usernameTextView.text = it.username
+        })
     }
 
 
@@ -100,26 +114,33 @@ class ChatActivity: AppCompatActivity() {
 //        linearLayoutManager.stackFromEnd = true
         recyclerView.layoutManager = linearLayoutManager
 
+        // Get conversation
         conversationsViewModel.
         getOrAddNewConversation(productID!!, mUserID!!, otherUserID!!).observe(this, Observer { conversation ->
-            // TODO: test new conversation by new user when bug fixed
-            println("Debug-chat: Database returns a conversation between userID = ${conversation.senderIDs[0]} and userID = ${conversation.senderIDs[1]}  ... product id = ${conversation.productID}}")
             conversationID = conversation.conversationID
-            usersViewModel.getAllConversations(mUserID!!)
-                .observe(this, Observer { userConversations ->
-                    println("Debug-chat: userConversations = $userConversations")
-                    if (!(userConversations.contains(conversation.conversationID))){
-                        newConversation = true
-                    }
-                })
-            // Create chat history
+
+            // Populate chat messages
             conversationsViewModel.
             getAllMessagesByConversationID(conversation.conversationID).observe(this, Observer { messages ->
                 val sortedMessageList = sortMessages(messages!!)
                 chatAdapter = ChatAdapter(this, sortedMessageList, mUserID!!)
+                chatAdapter.notifyDataSetChanged()
+//                if (chatAdapter.)
                 recyclerView.adapter = chatAdapter
             })
+
+            // Get user conversations to check if this is a new conversation or not
+            if (!conversationExistenceCheck) {
+                usersViewModel.getAllConversations(mUserID!!)
+                    .observe(this, Observer { userConversations ->
+                        if (!(userConversations.contains(conversation.conversationID))) {
+                            newConversation = true
+                        }
+                    })
+            }
+
         })
+
     }
 
 
@@ -147,6 +168,15 @@ class ChatActivity: AppCompatActivity() {
         if (messageContent == "")
             return
 
+        // Reset to blank
+        chatInputEditText.setText("")
+
+        // Create new message object
+        val message = Message(messageContent, mUserID!!)
+
+        // Add message to conversation livedata
+        conversationsViewModel.addMessageByConversationID(message, conversationID!!)
+
         // Check if the conversation exists in the users list of conversations
         // Add it if it doesn't
         if (!conversationExistenceCheck) {
@@ -157,15 +187,6 @@ class ChatActivity: AppCompatActivity() {
             }
             conversationExistenceCheck = true
         }
-
-        // Reset to blank
-        chatInputEditText.setText("")
-
-        // Create new message object
-        val message = Message(messageContent, mUserID!!)
-
-        // Add message to conversation livedata
-        conversationsViewModel.addMessageByConversationID(message, conversationID!!)
     }
 
     fun onSendMessageClicked(view: View){

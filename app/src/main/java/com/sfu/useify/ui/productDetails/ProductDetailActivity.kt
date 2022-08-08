@@ -155,6 +155,7 @@ class ProductDetailActivity: AppCompatActivity() {
         if (mUserID != sellerID){
             val intent = Intent(this, ChatActivity::class.java)
             val bundle = Bundle()
+            bundle.putInt(resources.getString(R.string.key_chat_start_type), 1)
             bundle.putString(resources.getString(R.string.key_chat_other_user_id), sellerID)
             bundle.putString(resources.getString(R.string.key_chat_product_id), product!!.productID)
             intent.putExtras(bundle)

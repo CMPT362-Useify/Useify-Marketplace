@@ -1,12 +1,8 @@
 package com.sfu.useify.ui.chat
 
-import android.app.Activity
-import android.content.Context
-import android.content.ContextWrapper
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
@@ -69,27 +65,18 @@ class ChatMenuActivity: AppCompatActivity(), LifecycleOwner {
         // Observe changes in conversations and update RecyclerView
         conversationsList = usersViewModel.getAllConversations(mUserID)
         conversationsList.observe(this, Observer { conversationsList ->
-            println("Debug: Conversation list of user = $conversationsList")
-
-            var sortedConversationsList = sortConversationsByTime(conversationsList!!)
-
-
             conversationsAdapter = ConversationsAdapter(
                 ViewTreeLifecycleOwner.get(recyclerView),
-                mUserID, sortedConversationsList
+                mUserID,
+                sortConversationsByTime(conversationsList!!)
             ) { conversationID ->
-                conversationsViewModel.getconversationByID(conversationID).observe(this, Observer {
-                    println("Debug: Conversation clicked (ID) = '$conversationID'")
-                    val intent = Intent(this, ChatActivity::class.java)
-                    val bundle = Bundle()
-                    bundle.putString(resources.getString(R.string.key_chat_product_id), it.productID)
-                    bundle.putString(resources.getString(R.string.key_chat_conversation_id), conversationID)
-                    for (i in it.senderIDs)
-                        if (i != mUserID)
-                            bundle.putString(resources.getString(R.string.key_chat_other_user_id), i)
-                    intent.putExtras(bundle)
-                    startActivity(intent)
-                })
+                println("Debug: Conversation clicked (ID) = '$conversationID'")
+                val intent = Intent(this, ChatActivity::class.java)
+                val bundle = Bundle()
+                bundle.putInt(resources.getString(R.string.key_chat_start_type), 0)
+                bundle.putString(resources.getString(R.string.key_chat_conversation_id), conversationID)
+                intent.putExtras(bundle)
+                startActivity(intent)
             }
             recyclerView.adapter = conversationsAdapter
         })
