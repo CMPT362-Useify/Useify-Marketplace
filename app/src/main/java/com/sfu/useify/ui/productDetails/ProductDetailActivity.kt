@@ -109,7 +109,6 @@ class ProductDetailActivity: AppCompatActivity() {
     }
 
     private fun updateLocation(latitude: Double, longitude: Double) {
-        // TODO: TEMPORARY COORDINATES, DELETE LATER WHEN DB HAS PRODUCTS WITH VALID COORDINATES
         var latitude = latitude
         var longitude = longitude
 

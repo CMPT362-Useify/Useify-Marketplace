@@ -33,6 +33,7 @@ class ChatActivity: AppCompatActivity() {
     private var otherUserID: String? = null
     private var productID: String? = null
     private var conversationID: String? = null
+    private var intentStartType: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +75,7 @@ class ChatActivity: AppCompatActivity() {
     // Start observer and create adapter after
     private fun getBundleAndCreateAdapter(bundle: Bundle?) {
         mUserID = Util.getUserID()
-        val intentStartType = bundle?.getInt(resources.getString(R.string.key_chat_start_type))
+        intentStartType = bundle?.getInt(resources.getString(R.string.key_chat_start_type))!!
         if (intentStartType == 0){          // Called from chat inbox activity
             conversationID = bundle?.getString(resources.getString(R.string.key_chat_conversation_id))
             conversationsViewModel.getconversationByID(conversationID!!).observe(this, Observer {
@@ -86,7 +87,6 @@ class ChatActivity: AppCompatActivity() {
                 getConversationPartnerUsername()
                 setupObserverAndAdapter()
             })
-
         } else if (intentStartType == 1) {  // Called from product details activity
             otherUserID = bundle?.getString(resources.getString(R.string.key_chat_other_user_id))
             productID = bundle?.getString(resources.getString(R.string.key_chat_product_id))
@@ -113,9 +113,14 @@ class ChatActivity: AppCompatActivity() {
         recyclerView.layoutManager = linearLayoutManager
         println("Debug: productID = $productID, mUserID = $mUserID, otherUserID = $otherUserID")
 
+
         // Get conversation
         conversationsViewModel.
         getOrAddNewConversation(productID!!, mUserID!!, otherUserID!!).observe(this, Observer { conversation ->
+            if (intentStartType == 1){
+                conversationID = conversation.conversationID
+            }
+
             // Populate chat messages
             conversationsViewModel.
             getAllMessagesByConversationID(conversationID!!).observe(this, Observer { messages ->
