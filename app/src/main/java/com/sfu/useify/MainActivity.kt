@@ -83,6 +83,11 @@ class MainActivity : AppCompatActivity() {
         myArrayList.observe(this) {
             val myProduct : List<Product>? = it
             if (myProduct != null) {
+                Ids.clear()
+                titles.clear()
+                price.clear()
+                images.clear()
+                myDate.clear()
                 for(product in myProduct) {
                     titles.add(product.name)
                     Ids.add(product.productID)
