@@ -11,8 +11,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.sfu.useify.R
 import com.squareup.picasso.Picasso
-import java.security.AccessController.getContext
-import java.util.*
 
 class ProfileAdapter(
     var context: Context, var title: MutableList<String>, var price: MutableList<Float>,
@@ -49,12 +47,21 @@ class ProfileAdapter(
 
         val dateView = view?.findViewById<TextView>(R.id.item_date)
 
-        if(nightModeFlags == Configuration.UI_MODE_NIGHT_YES){
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
             priceView?.setTextColor(Color.parseColor("#BC3CBC"))
             titleView?.setTextColor(Color.parseColor("#BC3CBC"))
             dateView?.setTextColor(Color.parseColor("#BC3CBC"))
         }
-        Picasso.get().load(image[position]).into(imageView)
+
+        if (image[position] != "") {
+            try {
+                Picasso.get().load(image[position]).into(imageView)
+            } catch (e: Exception) {
+                println("Debug: exception = $e")
+            }
+        }
+
+
         priceView?.text = "$" + price[position]
         titleView?.text = title[position]
         dateView?.text = date[position]
