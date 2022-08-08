@@ -8,6 +8,7 @@ import android.location.Geocoder
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.TextUtils.isEmpty
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -73,7 +74,8 @@ class AddEditProductActivity : AppCompatActivity() {
     private var userID = ""
     private var productCreatedAt: Long = 0L
     private var isImageChanged: Boolean = false
-
+    private var FAIL = 0
+    private var SUCCESS = 1
 
     // Models
     val productsViewModel = productsViewModel();
@@ -87,8 +89,6 @@ class AddEditProductActivity : AppCompatActivity() {
         //get current User ID
         auth = FirebaseAuth.getInstance()
         userID = auth.currentUser?.uid.toString()
-
-//        Toast.makeText(this, "userID: "+ userID, Toast.LENGTH_LONG).show()
 
         //get products input fields
         initializeFields()
@@ -195,8 +195,14 @@ class AddEditProductActivity : AppCompatActivity() {
         imgUrl = product.image
 
         if (imgUrl != "") {
-            Picasso.get().load(imgUrl).resize(800, 0).placeholder(R.drawable.ic_baseline_image_500)
-                .into(mImageView)
+            try {
+                Picasso.get().load(imgUrl).resize(500, 0)
+                    .placeholder(R.drawable.ic_baseline_image_500)
+                    .into(mImageView)
+            } catch (e: Exception) {
+                println("Debug: exception = $e")
+            }
+
         }
     }
 
@@ -287,28 +293,54 @@ class AddEditProductActivity : AppCompatActivity() {
         profileImgPickerDlialog.show()
     }
 
+    fun validateInput(): Int {
+        var name = titleET.text.toString()
+        var price = priceET.text.toString()
+        var desc = descriptionET.text.toString()
+        var pickupLocation = pickUpLoctionET.text.toString()
+
+        if (isEmpty(name) || isEmpty(price) || isEmpty(desc) || isEmpty(pickupLocation)) {
+            return FAIL
+        } else {
+            return SUCCESS
+        }
+    }
+
     fun onAddNewProductClicked(view: View) {
 
-        productCreatedAt = Util.getSystemTimeNow()
+        if (validateInput() === SUCCESS) {
+            productCreatedAt = Util.getSystemTimeNow()
+            val mProduct = Product(
+                titleET.text.toString(),
+                priceET.text.toString().toDouble(),
+                imgUrl,
+                descriptionET.text.toString(),
+                userID,
+                categorySelect.selectedItem.toString(),
+                pickupLat,
+                pickupLong,
+                productCreatedAt
+            )
 
-        val mProduct = Product(
-            titleET.text.toString(),
-            priceET.text.toString().toDouble(),
-            imgUrl,
-            descriptionET.text.toString(),
-            userID,
-            categorySelect.selectedItem.toString(),
-            pickupLat,
-            pickupLong,
-            productCreatedAt
-        )
-        productsViewModel.addProductWithPhoto(mProduct, bitmap)
+            if (imgUrl != "") {
+                productsViewModel.addProductWithPhoto(mProduct, bitmap)
+            } else {
+                productsViewModel.addProduct(mProduct)
+            }
 
-        Toast.makeText(this, "new product added", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "new product added", Toast.LENGTH_LONG).show()
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
 
-        // back to main page
-        val intent = Intent(applicationContext, MainActivity::class.java)
-        startActivity(intent)
+        } else {
+            Toast.makeText(
+                this,
+                "Title, Price, description and Pick up location are required! ",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+
+
     }
 
     fun onCancelProductClicked(view: View) {
@@ -327,26 +359,35 @@ class AddEditProductActivity : AppCompatActivity() {
     fun onUpdateProductClicked(view: View) {
 
         if (productId != "") {
-            val mProduct = Product(
-                titleET.text.toString(),
-                priceET.text.toString().toDouble(),
-                imgUrl,
-                descriptionET.text.toString(),
-                userID,
-                categorySelect.selectedItem.toString(),
-                pickupLat,
-                pickupLong,
-                productCreatedAt,
-                productId
-            )
-            if (isImageChanged){
-                productsViewModel.updateProductWithPhoto(productId,mProduct, bitmap)
-                Toast.makeText(this, "product updated", Toast.LENGTH_LONG).show()
-                finish()
+
+            if (validateInput() === SUCCESS) {
+                val mProduct = Product(
+                    titleET.text.toString(),
+                    priceET.text.toString().toDouble(),
+                    imgUrl,
+                    descriptionET.text.toString(),
+                    userID,
+                    categorySelect.selectedItem.toString(),
+                    pickupLat,
+                    pickupLong,
+                    productCreatedAt,
+                    productId
+                )
+                if (isImageChanged) {
+                    productsViewModel.updateProductWithPhoto(productId, mProduct, bitmap)
+                    Toast.makeText(this, "product updated", Toast.LENGTH_LONG).show()
+                    finish()
+                } else {
+                    productsViewModel.updateProduct(productId, mProduct)
+                    Toast.makeText(this, "product updated", Toast.LENGTH_LONG).show()
+                    finish()
+                }
             } else {
-                productsViewModel.updateProduct(productId, mProduct)
-                Toast.makeText(this, "product updated", Toast.LENGTH_LONG).show()
-                finish()
+                Toast.makeText(
+                    this,
+                    "Title, Price, description and Pick up location are required! ",
+                    Toast.LENGTH_LONG
+                ).show()
             }
 
         }

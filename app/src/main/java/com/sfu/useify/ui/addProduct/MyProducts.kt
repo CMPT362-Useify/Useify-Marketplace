@@ -2,7 +2,6 @@ package com.sfu.useify.ui.addProduct
 
 import android.os.Bundle
 import android.widget.ListView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
@@ -16,7 +15,6 @@ class MyProducts: AppCompatActivity() {
 
     //general
     private lateinit var myProductsList: MutableLiveData<List<Product>>
-    private lateinit var productList: List<Product>
 
     private lateinit var titlesList: MutableList<String>
     private lateinit var pricesList: MutableList<Float>

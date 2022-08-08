@@ -53,7 +53,12 @@ class MyProductAdapter(
         //set image
         var imgUrl = imagesList[position]
         if (imgUrl != "") {
-            Picasso.get().load(imgUrl).resize(250,0).centerCrop().placeholder(R.drawable.ic_baseline_image_500).into(imgIV)
+            try {
+                Picasso.get().load(imgUrl).resize(250, 0).centerCrop()
+                    .placeholder(R.drawable.ic_baseline_image_500).into(imgIV)
+            } catch (e: Exception) {
+                println("Debug: exception = $e")
+            }
         }
 
         viewItemBtn.setOnClickListener {

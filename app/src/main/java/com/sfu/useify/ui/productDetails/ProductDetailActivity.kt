@@ -88,7 +88,7 @@ class ProductDetailActivity: AppCompatActivity() {
             sellerIdTextView.text = it.username
         })
         try {
-            Picasso.get().load(newProduct.image).into(productImageView)        // Setup location TextView link (to GMaps)
+            Picasso.get().load(newProduct.image).resize(500, 0).into(productImageView)        // Setup location TextView link (to GMaps)
         } catch (e: Exception){
             println("Debug: exception = $e")
         }
