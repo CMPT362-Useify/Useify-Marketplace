@@ -8,6 +8,7 @@ import android.widget.ListView
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import com.sfu.useify.R
+import com.sfu.useify.Util
 import com.sfu.useify.ui.results.ResultsActivity
 
 class SearchCategoriesActivity: AppCompatActivity() {
@@ -15,11 +16,16 @@ class SearchCategoriesActivity: AppCompatActivity() {
     private lateinit var CATEGORIES_ICONS: TypedArray
     private lateinit var categoriesListView: ListView
     private lateinit var searchView: SearchView
+    private var mUserID: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_categories)
         setTitle(R.string.search_categories_title)
+
+        // Get bundle
+        val bundle = intent.extras
+        mUserID = Util.getUserID()
 
         // Setup back button in Action Bar
         // https://www.geeksforgeeks.org/how-to-add-and-customize-back-button-of-action-bar-in-android/
@@ -88,6 +94,7 @@ class SearchCategoriesActivity: AppCompatActivity() {
             bundle.putInt(resources.getString(R.string.key_search_query_type), ResultsActivity.CATEGORY)
             bundle.putInt(resources.getString(R.string.key_category_id), pos)
         }
+        bundle.putString(resources.getString(R.string.key_my_user_id), mUserID)
 
         categoryIntent.putExtras(bundle)
         startActivity(categoryIntent)

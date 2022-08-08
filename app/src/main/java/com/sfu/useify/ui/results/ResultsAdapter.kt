@@ -12,6 +12,7 @@ import com.sfu.useify.R
 import com.sfu.useify.Util
 import com.sfu.useify.models.Product
 import com.squareup.picasso.Picasso
+import java.lang.Exception
 
 // RecyclerView adapter for Browse Product Results page
 // References:
@@ -45,14 +46,17 @@ class ResultsAdapter(private val context: Context,
             .inflate(R.layout.cardview_product, parent, false)) {
             onClickListener(products?.get(it)!!.productID)
         }
-
         return viewHolder
     }
 
     // Replace the contents of the view with product data
     override fun onBindViewHolder(holder: ResultsViewHolder, pos: Int) {
         val product = products?.get(pos) ?: return
-        Picasso.get().load(product.image).into(holder.productImage)
+        try {
+            Picasso.get().load(product.image).into(holder.productImage)
+        } catch (e: Exception){
+            println("Debug: exception = $e")
+        }
         holder.productTitleTextView.text = product.name
         holder.productPriceTextView.text = String.format("$%.2f", product.price)
         holder.productDateTextView.text = Util.calculateTimeSincePosted(product.createAt)

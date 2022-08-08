@@ -7,21 +7,22 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import com.sfu.useify.database.conversationsViewModel
 import com.sfu.useify.resetPages.GeneralSettings
 import com.sfu.useify.resetPages.ResetPassword
 import com.sfu.useify.ui.addProduct.AddEditProductActivity
 import com.sfu.useify.ui.addProduct.MyProducts
 import com.sfu.useify.ui.browse.BrowseActivity
 import com.sfu.useify.ui.categories.SearchCategoriesActivity
+import com.sfu.useify.ui.chat.ChatMenuActivity
 import com.sfu.useify.ui.productDetails.ProductDetailActivity
-import com.sfu.useify.ui.signup.SignupActivity
+import com.sfu.useify.ui.authentication.signup.SignupActivity
 
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
     }
 
     fun changeTheme(view: View){
@@ -40,10 +41,11 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun onDetailsClicked(view: View) {
-        val intent = Intent(this, ProductDetailActivity::class.java)
+    fun onInboxClicked(view: View) {
+        val intent = Intent(this, ChatMenuActivity::class.java)
         startActivity(intent)
     }
+
 
 
     fun onSignUpClicked(view : View){

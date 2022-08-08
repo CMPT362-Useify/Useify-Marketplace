@@ -68,16 +68,16 @@
 
         </androidx.appcompat.widget.AppCompatButton>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/reset_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/purple_500"
-            android:text="@string/reset_password"
-            android:textColor="@color/white"
-            android:onClick="onResetClicked">
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:id="@+id/reset_password"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:backgroundTint="@color/purple_500"-->
+<!--            android:text="@string/reset_password"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:onClick="onResetClicked">-->
 
-        </androidx.appcompat.widget.AppCompatButton>
+<!--        </androidx.appcompat.widget.AppCompatButton>-->
 
     </LinearLayout>
     <LinearLayout
@@ -85,19 +85,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/button_details"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="0.5"
-            android:backgroundTint="@color/purple_500"
-            android:onClick="onDetailsClicked"
-            android:text="@string/details"
-            android:textColor="@color/white" />
-
 
         <Button
             android:id="@+id/button_search"
@@ -109,6 +96,19 @@
             android:backgroundTint="@color/purple_500"
             android:onClick="onSearchClicked"
             android:text="@string/search"
+            android:textColor="@color/white" />
+
+
+        <Button
+            android:id="@+id/button_chat_inbox"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="0.5"
+            android:backgroundTint="@color/purple_500"
+            android:onClick="onInboxClicked"
+            android:text="Inbox"
             android:textColor="@color/white" />
     </LinearLayout>
 

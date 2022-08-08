@@ -22,6 +22,8 @@ import java.io.ByteArrayOutputStream
 class usersViewModel: ViewModel() {
     private var users: MutableLiveData<List<User>> = MutableLiveData()
     private var userById: MutableLiveData<User> = MutableLiveData()
+    private var savedProducts: MutableLiveData<List<String>> = MutableLiveData()
+    private var conversations: MutableLiveData<List<String>> = MutableLiveData()
 
     private val database = FirebaseDatabase.getInstance()
     private val databaseReference = database.getReference("Users")
@@ -93,6 +95,10 @@ class usersViewModel: ViewModel() {
         return userById
     }
 
+
+
+
+
     //key: id of the user in database
     fun deleteUser(key:String){
         databaseReference.child(key).removeValue()
@@ -103,6 +109,50 @@ class usersViewModel: ViewModel() {
         databaseReference.child(key).setValue(user)
     }
 
+    fun addConversation(userId: String,conversationID: String){
+        val newConversationRef = databaseReference.child(userId).child("conversations").push()
+        newConversationRef.setValue(conversationID)
+    }
 
+    fun getAllConversations(userID: String): MutableLiveData<List<String>>{
+        databaseReference.child(userID).child("conversations").addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+                    val conversationList = snapshot.children.mapNotNull { it.getValue(String::class.java) }.toList()
+                    conversations.postValue(conversationList)
+                } else {
+                    conversations.postValue(emptyList())
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
+        return conversations
+    }
+
+    fun addProductToSavedList(userId: String,productID: String){
+        val newProductRef = databaseReference.child(userId).child("savedProducts").push()
+        newProductRef.setValue(productID)
+    }
+
+    fun getAllSavedProducts(userID: String): MutableLiveData<List<String>>{
+        databaseReference.child(userID).child("savedProducts").addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+                    val productsList = snapshot.children.mapNotNull { it.getValue(String::class.java) }.toList()
+                    savedProducts.postValue(productsList)
+                } else {
+                    savedProducts.postValue(emptyList())
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
+        return savedProducts
+    }
 
 }

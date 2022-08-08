@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             android:layout_marginEnd="100dp"
             android:scaleX="2"
             android:scaleY="2"
@@ -125,6 +125,24 @@
 
         </androidx.appcompat.widget.AppCompatButton>
 
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/logout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="100dp"
+            android:background="@color/purple_500"
+            android:onClick="changePassword"
+            android:text="@string/logout"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/change_password">
+
+        </androidx.appcompat.widget.AppCompatButton>
+
         <Button
             android:id="@+id/back_settings"
             android:layout_width="0dp"
@@ -136,7 +154,7 @@
             android:onClick="goToMain"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/change_password" />
+            app:layout_constraintTop_toBottomOf="@+id/logout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sfu.useify.R
+import com.sfu.useify.Util
 import com.sfu.useify.database.productsViewModel
 import com.sfu.useify.models.Product
 import com.sfu.useify.ui.productDetails.ProductDetailActivity
@@ -23,6 +24,7 @@ class ResultsActivity: AppCompatActivity() {
     private var selected: Int = 0
     private var recyclerViewSpanCount: Int = 2
     private var searchType: Int = ALL
+    // Grid layout by default
     private var GRID_LAYOUT: Int = 0
     private var LINEAR_LAYOUT: Int = 1
     private var layoutType: Int = GRID_LAYOUT
@@ -33,6 +35,7 @@ class ResultsActivity: AppCompatActivity() {
     private lateinit var productsList: LiveData<List<Product>>
     private lateinit var searchCategory: String
     private lateinit var searchQuery: String
+    private var mUserID: String? = null
 
     companion object{
         const val ALL: Int = 0
@@ -59,6 +62,7 @@ class ResultsActivity: AppCompatActivity() {
         // Get search type (All products, specific category, search string) from bundle
         val bundle: Bundle? = intent.extras
         searchType = bundle?.getInt(resources.getString(R.string.key_search_query_type))!!
+        mUserID = Util.getUserID()
 
         when (searchType){
             ALL -> showAllResults()
@@ -82,8 +86,7 @@ class ResultsActivity: AppCompatActivity() {
 
 
     private fun showCategoryResults(category: String) {
-        // TODO: Change to getting products from a category
-        productsList = sortByRecent(productsViewModel.getAllProducts()) // getProductByCategory(category))
+        productsList = sortByRecent(productsViewModel.getProductByCategory(category))
 
         setupObserverAndAdapter()
     }
@@ -122,9 +125,9 @@ class ResultsActivity: AppCompatActivity() {
         productsList.observe(this, Observer {
             resultsAdapter = ResultsAdapter(this, it) { productID ->
                 println("Debug: ProductID of product clicked = '$productID'")
+                val intent = Intent(this, ProductDetailActivity::class.java)
                 val bundle = Bundle()
                 bundle.putString(resources.getString(R.string.key_product_clicked), productID)
-                val intent = Intent(this, ProductDetailActivity::class.java)
                 intent.putExtras(bundle)
                 startActivity(intent)
             }
@@ -252,10 +255,8 @@ class ResultsActivity: AppCompatActivity() {
 
     private fun getProductList(): LiveData<List<Product>> {
         when (searchType){
-            // TODO: Change CATEGORY case back to commented way when DB gets more products with categories
             ALL -> return productsViewModel.getAllProducts()
-            CATEGORY -> return productsViewModel.getAllProducts()
-//            CATEGORY -> return productsViewModel.getProductByCategory(searchCategory)
+            CATEGORY -> return productsViewModel.getProductByCategory(searchCategory)
             SEARCH_STRING -> return performSearchQuery(productsViewModel.getAllProducts(), searchQuery)
         }
         return productsViewModel.getAllProducts()
