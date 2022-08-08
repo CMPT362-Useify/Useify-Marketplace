@@ -43,7 +43,7 @@ class ResetPassword : AppCompatActivity() {
                             val intent : Intent = Intent(this, LoginActivity::class.java)
                             startActivity(intent)
                         } else {
-                            Toast.makeText(this, "Unable to send reset mail", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this, "Unable to send reset mail: invalid email", Toast.LENGTH_LONG).show()
                         }
                     })
             }
