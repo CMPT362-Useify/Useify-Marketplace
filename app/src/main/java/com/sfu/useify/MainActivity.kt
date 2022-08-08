@@ -4,7 +4,10 @@ import android.content.Intent
 import android.content.res.Configuration
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.sfu.useify.database.conversationsViewModel
@@ -37,45 +40,52 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun onSearchClicked(view: View) {
-        val intent = Intent(this, SearchCategoriesActivity::class.java)
-        startActivity(intent)
-    }
-
-    fun onInboxClicked(view: View) {
-        val intent = Intent(this, ChatMenuActivity::class.java)
-        startActivity(intent)
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
     }
 
 
-
-    fun onExploreClicked(view: View){
-        val newScreen = Intent(this, BrowseActivity::class.java)
-        startActivity(newScreen)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_search ->{
+                val intent = Intent(this, SearchCategoriesActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.action_inbox ->{
+                val intent = Intent(this, ChatMenuActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.action_add ->{
+                val newScreen = Intent(this, AddEditProductActivity::class.java)
+                startActivity(newScreen)
+                return true
+            }
+            R.id.action_view_my_products ->{
+                val newScreen = Intent(this, MyProducts::class.java)
+                startActivity(newScreen)
+                return true
+            }
+            R.id.action_saved_products ->{
+                val newScreen = Intent(this, SavedProductsActivity::class.java)
+                startActivity(newScreen)
+                return true
+            }
+            R.id.action_explore ->{
+                val newScreen = Intent(this, BrowseActivity::class.java)
+                startActivity(newScreen)
+                return true
+            }
+            R.id.action_settings -> {
+                val newScreen = Intent(this, GeneralSettings::class.java)
+                startActivity(newScreen)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
-    fun onSettingsClicked(view: View){
-        val newScreen = Intent(this, GeneralSettings::class.java)
-        startActivity(newScreen)
-    }
-
-    fun onResetClicked(view: View){
-        val newScreen = Intent(this, ResetPassword::class.java)
-        startActivity(newScreen)
-    }
-
-    fun onAddProductClicked(view : View){
-        val newScreen = Intent(this, AddEditProductActivity::class.java)
-        startActivity(newScreen)
-    }
-
-    fun onProductList(view : View){
-        val newScreen = Intent(this, MyProducts::class.java)
-        startActivity(newScreen)
-    }
-
-    fun onSavedProductsClicked(view: View) {
-        val newScreen = Intent(this, SavedProductsActivity::class.java)
-        startActivity(newScreen)
-    }
 }
