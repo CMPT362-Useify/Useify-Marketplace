@@ -13,6 +13,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.sfu.useify.database.conversationsViewModel
 import com.sfu.useify.database.productsViewModel
 import com.sfu.useify.models.Product
@@ -20,6 +22,7 @@ import com.sfu.useify.resetPages.GeneralSettings
 import com.sfu.useify.resetPages.ResetPassword
 import com.sfu.useify.ui.addProduct.AddEditProductActivity
 import com.sfu.useify.ui.addProduct.MyProducts
+import com.sfu.useify.ui.authentication.login.LoginActivity
 import com.sfu.useify.ui.browse.BrowseActivity
 import com.sfu.useify.ui.categories.SearchCategoriesActivity
 import com.sfu.useify.ui.chat.ChatMenuActivity
@@ -165,6 +168,13 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> {
                 val newScreen = Intent(this, GeneralSettings::class.java)
                 startActivity(newScreen)
+                true
+            }
+            R.id.action_sign_out -> {
+                Firebase.auth.signOut()
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
                 true
             }
             else -> super.onOptionsItemSelected(item)
