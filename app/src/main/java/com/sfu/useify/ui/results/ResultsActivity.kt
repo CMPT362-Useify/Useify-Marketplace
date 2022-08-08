@@ -193,6 +193,7 @@ class ResultsActivity: AppCompatActivity() {
     }
 
 
+
     // Handle clicks on menu items
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

@@ -52,12 +52,12 @@ class ConversationsAdapter(private val owner: LifecycleOwner?,
         val productsViewModel = productsViewModel()
         conversationsViewModel.getconversationByID(conversations[pos]).observe(owner!!, Observer {
             val usersViewModel = usersViewModel()
-
             // Get other user's username
             for (i in it.senderIDs) {
                 if (i != mUserID) {
                     usersViewModel.getUserByID(i).observe(owner, Observer { user ->
-                        holder.usernameTextView.text = user.username
+                        println("Debug-chat: UserID is $i which translates to ${user}")
+                        holder.usernameTextView.text = user.username!!.trim()
                     })
                 }
             }

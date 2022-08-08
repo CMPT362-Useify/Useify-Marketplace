@@ -48,8 +48,6 @@ class ChatActivity: AppCompatActivity() {
         // Get bundle contents
         val bundle = intent.extras
         getBundleAndCreateAdapter(bundle)
-        println("Debug-chat: onCreate chat activity")
-
     }
 
 
@@ -101,7 +99,7 @@ class ChatActivity: AppCompatActivity() {
     // Get other chatter's username
     private fun getConversationPartnerUsername(){
         usersViewModel.getUserByID(otherUserID!!).observe(this, Observer {
-            usernameTextView.text = it.username
+            usernameTextView.text = it.username!!.trim()
         })
     }
 
@@ -113,19 +111,16 @@ class ChatActivity: AppCompatActivity() {
         linearLayoutManager.reverseLayout = true
 //        linearLayoutManager.stackFromEnd = true
         recyclerView.layoutManager = linearLayoutManager
+        println("Debug: productID = $productID, mUserID = $mUserID, otherUserID = $otherUserID")
 
         // Get conversation
         conversationsViewModel.
         getOrAddNewConversation(productID!!, mUserID!!, otherUserID!!).observe(this, Observer { conversation ->
-            conversationID = conversation.conversationID
-
             // Populate chat messages
             conversationsViewModel.
-            getAllMessagesByConversationID(conversation.conversationID).observe(this, Observer { messages ->
+            getAllMessagesByConversationID(conversationID!!).observe(this, Observer { messages ->
                 val sortedMessageList = sortMessages(messages!!)
                 chatAdapter = ChatAdapter(this, sortedMessageList, mUserID!!)
-                chatAdapter.notifyDataSetChanged()
-//                if (chatAdapter.)
                 recyclerView.adapter = chatAdapter
             })
 
@@ -133,14 +128,12 @@ class ChatActivity: AppCompatActivity() {
             if (!conversationExistenceCheck) {
                 usersViewModel.getAllConversations(mUserID!!)
                     .observe(this, Observer { userConversations ->
-                        if (!(userConversations.contains(conversation.conversationID))) {
+                        if (!(userConversations.contains(conversationID))) {
                             newConversation = true
                         }
                     })
             }
-
         })
-
     }
 
 

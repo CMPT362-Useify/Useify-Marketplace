@@ -3,6 +3,7 @@ package com.sfu.useify.resetPages
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -24,6 +25,8 @@ class Password : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.password)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setTitle(R.string.change_password)
 
         auth = FirebaseAuth.getInstance()
 
@@ -57,7 +60,17 @@ class Password : AppCompatActivity(){
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
+    }
 
+    // Handle clicks on menu items
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     fun goToMain(view: View){
