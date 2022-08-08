@@ -97,8 +97,8 @@ class ProductDetailActivity: AppCompatActivity() {
 
     private fun updateLocation(latitude: Double, longitude: Double) {
         // TODO: TEMPORARY COORDINATES, DELETE LATER WHEN DB HAS PRODUCTS WITH VALID COORDINATES
-        var latitude = 49.28887213454251
-        var longitude = -123.1110637962786
+        var latitude = latitude
+        var longitude = longitude
 
         // Get address from coordinates
         val geocoder = Geocoder(this, Locale.getDefault())

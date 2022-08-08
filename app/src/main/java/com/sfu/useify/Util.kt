@@ -12,6 +12,8 @@ import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
+import java.io.File
+import java.io.FileOutputStream
 import java.util.*
 
 object Util {
@@ -38,6 +40,32 @@ object Util {
 //        matrix.setRotate(90f)
         var ret = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
         return ret
+    }
+
+
+    // Credit to : https://stackoverflow.com/questions/11274715/save-bitmap-to-file-function
+    fun saveBitmapIntoDevice(context: Context, imgName: String, imgUri: Uri) {
+        val tempImgFile = File(context.getExternalFilesDir(null), imgName)
+        val bitmap = getBitmap(context, imgUri)
+        val fOut = FileOutputStream(tempImgFile)
+        val matrix = Matrix()
+        matrix.setRotate(0f)
+        Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true).compress(
+            Bitmap.CompressFormat.JPEG,
+            85,
+            fOut
+        )
+        fOut.flush()
+        fOut.close()
+    }
+
+    fun deleteImg(context: Context, mTempImgName: String) {
+        val tempImgFile = File(context.getExternalFilesDir(null), mTempImgName)
+        tempImgFile.delete()
+    }
+
+    fun getSystemTimeNow(): Long {
+        return System.currentTimeMillis()
     }
 
     fun calculateTimeSincePosted(postTime: Long): String{

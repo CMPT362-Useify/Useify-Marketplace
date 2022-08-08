@@ -24,6 +24,7 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import com.google.firebase.auth.FirebaseAuth
 import com.sfu.useify.MainActivity
 import com.sfu.useify.R
 import com.sfu.useify.Util
@@ -54,7 +55,6 @@ class AddEditProductActivity : AppCompatActivity() {
 
 
     // TODO: get images and seller ID
-    private var sellerID = "0"
     private var pickupLat = 0.0
     private var pickupLong = 0.0
 
@@ -70,6 +70,7 @@ class AddEditProductActivity : AppCompatActivity() {
     private lateinit var mProductImgUri: Uri
     private lateinit var bitmap: Bitmap
     private var productId = ""
+    private var userID = ""
     private var productCreatedAt: Long = 0L
     private var isImageChanged: Boolean = false
 
@@ -77,10 +78,17 @@ class AddEditProductActivity : AppCompatActivity() {
     // Models
     val productsViewModel = productsViewModel();
     lateinit var myProduct: MutableLiveData<Product>
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_product)
+
+        //get current User ID
+        auth = FirebaseAuth.getInstance()
+        userID = auth.currentUser?.uid.toString()
+
+//        Toast.makeText(this, "userID: "+ userID, Toast.LENGTH_LONG).show()
 
         //get products input fields
         initializeFields()
@@ -184,9 +192,9 @@ class AddEditProductActivity : AppCompatActivity() {
         pickupLong = product.pickupLong
         productId = product.productID
         productCreatedAt = product.createAt
+        imgUrl = product.image
 
-        var imgUrl = product.image
-        if (imgUrl !== "") {
+        if (imgUrl != "") {
             Picasso.get().load(imgUrl).resize(800, 0).placeholder(R.drawable.ic_baseline_image_500)
                 .into(mImageView)
         }
@@ -288,7 +296,7 @@ class AddEditProductActivity : AppCompatActivity() {
             priceET.text.toString().toDouble(),
             imgUrl,
             descriptionET.text.toString(),
-            sellerID,
+            userID,
             categorySelect.selectedItem.toString(),
             pickupLat,
             pickupLong,
@@ -324,7 +332,7 @@ class AddEditProductActivity : AppCompatActivity() {
                 priceET.text.toString().toDouble(),
                 imgUrl,
                 descriptionET.text.toString(),
-                sellerID,
+                userID,
                 categorySelect.selectedItem.toString(),
                 pickupLat,
                 pickupLong,

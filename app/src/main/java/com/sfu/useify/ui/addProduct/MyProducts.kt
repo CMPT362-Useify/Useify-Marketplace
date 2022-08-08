@@ -5,6 +5,7 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.FirebaseAuth
 import com.sfu.useify.R
 import com.sfu.useify.database.productsViewModel
 import com.sfu.useify.models.Product
@@ -26,10 +27,16 @@ class MyProducts: AppCompatActivity() {
 
     // Models
     val productsViewModel = productsViewModel();
+    private lateinit var auth: FirebaseAuth
+    private var userID = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_products)
+
+        //get current User ID
+        auth = FirebaseAuth.getInstance()
+        userID = auth.currentUser?.uid.toString()
 
         initializeFields()
 
@@ -54,11 +61,14 @@ class MyProducts: AppCompatActivity() {
                 imagesList.clear()
 
                 for (product in myProduct) {
-                    idsList.add(product.productID)
-                    titlesList.add(product.name)
-                    descList.add(product.description)
-                    pricesList.add(product.price.toFloat())
-                    imagesList.add(product.image)
+                    if(product.sellerID == userID){
+                        idsList.add(product.productID)
+                        titlesList.add(product.name)
+                        descList.add(product.description)
+                        pricesList.add(product.price.toFloat())
+                        imagesList.add(product.image)
+                    }
+
                 }
                 setListView()
             }

@@ -58,7 +58,11 @@ class MyProductAdapter(
 
         viewItemBtn.setOnClickListener {
             val intent = Intent(view.context, ProductDetailActivity::class.java)
-            intent.putExtra("productIdKey", productID)
+            var key = view.context.getString(R.string.key_product_clicked)
+            intent.putExtra(
+                key,
+                productID
+            )
             view.context.startActivity(intent)
         }
 
