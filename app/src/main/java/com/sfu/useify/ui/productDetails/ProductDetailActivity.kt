@@ -88,7 +88,7 @@ class ProductDetailActivity: AppCompatActivity() {
             sellerIdTextView.text = it.username
         })
         try {
-            Picasso.get().load(newProduct.image).into(productImageView)        // Setup location TextView link (to GMaps)
+            Picasso.get().load(newProduct.image).resize(500, 0).into(productImageView)        // Setup location TextView link (to GMaps)
         } catch (e: Exception){
             println("Debug: exception = $e")
         }
@@ -97,8 +97,8 @@ class ProductDetailActivity: AppCompatActivity() {
 
     private fun updateLocation(latitude: Double, longitude: Double) {
         // TODO: TEMPORARY COORDINATES, DELETE LATER WHEN DB HAS PRODUCTS WITH VALID COORDINATES
-        var latitude = 49.28887213454251
-        var longitude = -123.1110637962786
+        var latitude = latitude
+        var longitude = longitude
 
         // Get address from coordinates
         val geocoder = Geocoder(this, Locale.getDefault())
