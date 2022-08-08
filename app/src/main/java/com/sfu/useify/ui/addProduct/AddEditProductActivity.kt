@@ -197,7 +197,7 @@ class AddEditProductActivity : AppCompatActivity() {
         if (imgUrl != "") {
             try {
                 Picasso.get().load(imgUrl).resize(500, 0)
-                    .placeholder(R.drawable.ic_baseline_image_500)
+                    .placeholder(R.drawable.no_image_available)
                     .into(mImageView)
             } catch (e: Exception) {
                 println("Debug: exception = $e")

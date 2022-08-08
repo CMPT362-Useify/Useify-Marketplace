@@ -48,11 +48,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    fun onSignUpClicked(view : View){
-        val newScreen = Intent(this, SignupActivity::class.java)
-        startActivity(newScreen)
-    }
-
     fun onExploreClicked(view: View){
         val newScreen = Intent(this, BrowseActivity::class.java)
         startActivity(newScreen)

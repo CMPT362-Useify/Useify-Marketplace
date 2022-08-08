@@ -55,7 +55,14 @@ class ProfileAdapter(
 
         if (image[position] != "") {
             try {
-                Picasso.get().load(image[position]).into(imageView)
+                Picasso.get().load(image[position]).placeholder(R.drawable.no_image_available)
+                    .into(imageView)
+            } catch (e: Exception) {
+                println("Debug: exception = $e")
+            }
+        } else {
+            try {
+                Picasso.get().load(R.drawable.no_image_available).into(imageView)
             } catch (e: Exception) {
                 println("Debug: exception = $e")
             }
