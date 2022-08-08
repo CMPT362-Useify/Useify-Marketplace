@@ -70,6 +70,7 @@ class AddEditProductActivity : AppCompatActivity() {
     private lateinit var mProductImgUri: Uri
     private lateinit var bitmap: Bitmap
     private var productId = ""
+    private var productCreatedAt: Long = 0L
     private var isImageChanged: Boolean = false
 
 
@@ -182,6 +183,7 @@ class AddEditProductActivity : AppCompatActivity() {
         pickupLat = product.pickupLat
         pickupLong = product.pickupLong
         productId = product.productID
+        productCreatedAt = product.createAt
 
         var imgUrl = product.image
         if (imgUrl !== "") {
@@ -279,6 +281,8 @@ class AddEditProductActivity : AppCompatActivity() {
 
     fun onAddNewProductClicked(view: View) {
 
+        productCreatedAt = Util.getSystemTimeNow()
+
         val mProduct = Product(
             titleET.text.toString(),
             priceET.text.toString().toDouble(),
@@ -287,7 +291,8 @@ class AddEditProductActivity : AppCompatActivity() {
             sellerID,
             categorySelect.selectedItem.toString(),
             pickupLat,
-            pickupLong
+            pickupLong,
+            productCreatedAt
         )
         productsViewModel.addProductWithPhoto(mProduct, bitmap)
 
@@ -323,6 +328,7 @@ class AddEditProductActivity : AppCompatActivity() {
                 categorySelect.selectedItem.toString(),
                 pickupLat,
                 pickupLong,
+                productCreatedAt,
                 productId
             )
             if (isImageChanged){
