@@ -3,7 +3,6 @@ package com.sfu.useify.ui.browse
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.GridView
@@ -18,7 +17,6 @@ import com.sfu.useify.models.Product
 import com.sfu.useify.ui.productDetails.ProductDetailActivity
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class BrowseActivity: AppCompatActivity() {
 
@@ -28,6 +26,7 @@ class BrowseActivity: AppCompatActivity() {
 
     private lateinit var gridView: GridView
     private lateinit var titles: MutableList<String>
+    private lateinit var Ids: MutableList<String>
     private lateinit var price: MutableList<Float>
     private lateinit var images: MutableList<String>
     private lateinit var productDatabase: productsViewModel
@@ -76,6 +75,7 @@ class BrowseActivity: AppCompatActivity() {
         productDatabase = productsViewModel()
         myArrayList = productDatabase.getAllProducts()
         titles = ArrayList()
+        Ids = ArrayList()
         price = ArrayList()
         images = ArrayList()
         myDate = ArrayList()
@@ -83,8 +83,9 @@ class BrowseActivity: AppCompatActivity() {
         myArrayList.observe(this) {
             val myProduct : List<Product>? = it
             if (myProduct != null) {
-                for(product in myProduct){
-                    titles.add("Name of the product is:\n ${product.name}")
+                for(product in myProduct) {
+                    titles.add(product.name)
+                    Ids.add(product.productID)
                     price.add(product.price.toFloat())
                     images.add(product.image)
                     val formatter = SimpleDateFormat("MMMM-dd-yyyy", Locale.CANADA)
@@ -114,10 +115,13 @@ class BrowseActivity: AppCompatActivity() {
     private fun gridViewOnClickListener() {
         gridView.onItemClickListener =
             OnItemClickListener { parent, view, position, id ->
-                val bundle = Bundle()
-                bundle.putString(CURRENT_USER_KEY, titles[position])
+
                 val intent = Intent(applicationContext, ProductDetailActivity::class.java)
-                intent.putExtras(bundle)
+                var key = view.context.getString(R.string.key_product_clicked)
+                intent.putExtra(
+                    key,
+                    Ids[position]
+                )
                 startActivity(intent)
             }
     }

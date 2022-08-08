@@ -22,11 +22,6 @@
 
         </androidx.appcompat.widget.AppCompatToggleButton>
 
-        <Button
-            android:onClick="onSignUpClicked"
-            android:text="@string/signup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
 
         <Button
             android:onClick="onAddProductClicked"
