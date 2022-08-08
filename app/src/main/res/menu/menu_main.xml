@@ -35,11 +35,6 @@
         app:showAsAction="withText"
         android:icon="@drawable/ic_baseline_favorite_24"
         android:title="@string/action_saved_products" />
-    <item
-        android:id="@+id/action_explore"
-        app:showAsAction="withText"
-        android:icon="@drawable/ic_baseline_image_search_24"
-        android:title="@string/action_explore" />
 
     <item
         android:id="@+id/action_settings"

@@ -160,11 +160,6 @@ class MainActivity : AppCompatActivity() {
                 startActivity(newScreen)
                 return true
             }
-            R.id.action_explore ->{
-                val newScreen = Intent(this, BrowseActivity::class.java)
-                startActivity(newScreen)
-                return true
-            }
             R.id.action_settings -> {
                 val newScreen = Intent(this, GeneralSettings::class.java)
                 startActivity(newScreen)

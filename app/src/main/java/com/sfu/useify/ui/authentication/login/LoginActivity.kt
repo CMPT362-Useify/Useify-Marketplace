@@ -33,6 +33,8 @@ class LoginActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
+        supportActionBar?.hide()
+
         emailEditText = findViewById(R.id.email_edit_text)
         passwordEditText = findViewById(R.id.pass_edit_text)
 
