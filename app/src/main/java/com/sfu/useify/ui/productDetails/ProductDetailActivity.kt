@@ -1,6 +1,7 @@
 package com.sfu.useify.ui.productDetails
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.location.Geocoder
 import android.net.Uri
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.text.method.LinkMovementMethod
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -22,8 +24,8 @@ import com.sfu.useify.database.usersViewModel
 import com.sfu.useify.models.Product
 import com.sfu.useify.ui.chat.ChatActivity
 import com.squareup.picasso.Picasso
-import java.lang.Exception
 import java.util.*
+
 
 class ProductDetailActivity: AppCompatActivity() {
     private lateinit var usersViewModel: usersViewModel
@@ -35,6 +37,8 @@ class ProductDetailActivity: AppCompatActivity() {
     private lateinit var sellerIdTextView: TextView
     private lateinit var locationTextView: TextView
     private lateinit var productImageView: ImageView
+    private lateinit var saveProductButton: Button
+    private var productSaved: Boolean = false
     private var productID: String? = null
     private var mUserID: String? = null
     private var product: Product? = null
@@ -56,7 +60,7 @@ class ProductDetailActivity: AppCompatActivity() {
         sellerIdTextView = findViewById<TextView>(R.id.textview_product_details_seller_id)
         locationTextView = findViewById<TextView>(R.id.textview_product_details_location)
         productImageView = findViewById<ImageView>(R.id.imageview_product_details_photo)
-
+        saveProductButton = findViewById<Button>(R.id.button_save_product)
 
         // Setup ViewModels and get productID
         val bundle: Bundle? = intent.extras
@@ -64,6 +68,15 @@ class ProductDetailActivity: AppCompatActivity() {
         productsViewModel = productsViewModel()
         productID = bundle?.getString(resources.getString(R.string.key_product_clicked))
         mUserID = Util.getUserID()
+
+        usersViewModel.getAllSavedProducts(mUserID!!).observe(this, Observer {
+            if (it.contains(productID)){
+                productSaved = true
+                val filledFloppy = resources.getDrawable(R.drawable.ic_baseline_save_24_filled)
+                filledFloppy.setBounds(0,0,60,60)
+                saveProductButton.setCompoundDrawables(filledFloppy, null, null, null)
+            }
+        })
 
 
         // Get product item
@@ -162,6 +175,15 @@ class ProductDetailActivity: AppCompatActivity() {
             startActivity(intent)
         } else {
             Toast.makeText(this, "This is your post!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun onSaveClicked(view: View){
+        if (!productSaved){
+            usersViewModel.addProductToSavedList(mUserID!!, productID!!)
+            Toast.makeText(this,"Saved!", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this,"Already saved!", Toast.LENGTH_SHORT).show()
         }
     }
 }

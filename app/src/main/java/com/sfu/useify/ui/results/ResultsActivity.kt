@@ -47,6 +47,7 @@ class ResultsActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setTitle(R.string.search_results_title)
         setContentView(R.layout.activity_results)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Get Products ViewModel
         productsViewModel = productsViewModel()
@@ -54,10 +55,6 @@ class ResultsActivity: AppCompatActivity() {
         // Setup RecyclerView
         recyclerView = findViewById<RecyclerView>(R.id.recyclerview_results)
         recyclerView.layoutManager = GridLayoutManager(this, recyclerViewSpanCount)
-
-        // Setup back button in Action Bar
-        val actionBar = supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Get search type (All products, specific category, search string) from bundle
         val bundle: Bundle? = intent.extras
@@ -123,7 +120,7 @@ class ResultsActivity: AppCompatActivity() {
             return
         // Observe changes in entries list
         productsList.observe(this, Observer {
-            resultsAdapter = ResultsAdapter(this, it) { productID ->
+            recyclerView.adapter = ResultsAdapter(it) { productID ->
                 println("Debug: ProductID of product clicked = '$productID'")
                 val intent = Intent(this, ProductDetailActivity::class.java)
                 val bundle = Bundle()
@@ -131,7 +128,6 @@ class ResultsActivity: AppCompatActivity() {
                 intent.putExtras(bundle)
                 startActivity(intent)
             }
-            recyclerView.adapter = resultsAdapter
         })
     }
 

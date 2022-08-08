@@ -17,6 +17,7 @@ import com.sfu.useify.ui.categories.SearchCategoriesActivity
 import com.sfu.useify.ui.chat.ChatMenuActivity
 import com.sfu.useify.ui.productDetails.ProductDetailActivity
 import com.sfu.useify.ui.authentication.signup.SignupActivity
+import com.sfu.useify.ui.savedProducts.SavedProductsActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -75,6 +76,11 @@ class MainActivity : AppCompatActivity() {
 
     fun onProductList(view : View){
         val newScreen = Intent(this, MyProducts::class.java)
+        startActivity(newScreen)
+    }
+
+    fun onSavedProductsClicked(view: View) {
+        val newScreen = Intent(this, SavedProductsActivity::class.java)
         startActivity(newScreen)
     }
 }

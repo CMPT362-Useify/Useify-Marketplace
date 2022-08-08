@@ -81,4 +81,7 @@
     <string name="signup_password">Password</string>
     <string name="logout">Sign out</string>
 
+    // Saved products
+    <string name="saved_products_title">Saved Products</string>
+
 </resources>

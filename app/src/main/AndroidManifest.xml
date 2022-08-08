@@ -57,6 +57,9 @@
             android:name=".ui.results.ResultsActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.savedProducts.SavedProductsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.chat.ChatMenuActivity"
             android:exported="false" />
         <activity

@@ -17,8 +17,7 @@ import java.lang.Exception
 // RecyclerView adapter for Browse Product Results page
 // References:
 // https://www.youtube.com/watch?v=GvLgWjPigmQ&ab_channel=KonstantinosReppas
-class ResultsAdapter(private val context: Context,
-                     private var products: List<Product>?,
+class ResultsAdapter(private var products: List<Product>?,
                      private val onClickListener: (String) -> Unit):
     RecyclerView.Adapter<ResultsAdapter.ResultsViewHolder>()
 {

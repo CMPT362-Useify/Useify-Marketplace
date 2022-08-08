@@ -130,8 +130,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <Button
-            android:drawableLeft="@drawable/ic_round_save_24"
+            android:id="@+id/button_save_product"
+            android:drawableLeft="@drawable/ic_outline_save_24_outlined"
             android:text="@string/details_save_button"
+            android:onClick="onSaveClicked"
             android:layout_marginHorizontal="25dp"
             android:layout_weight="0.5"
             android:layout_width="match_parent"

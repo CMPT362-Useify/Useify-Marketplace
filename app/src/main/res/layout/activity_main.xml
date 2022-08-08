@@ -110,6 +110,19 @@
             android:onClick="onInboxClicked"
             android:text="Inbox"
             android:textColor="@color/white" />
+
+
+        <Button
+            android:id="@+id/button_saved_products"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="0.5"
+            android:backgroundTint="@color/purple_500"
+            android:onClick="onSavedProductsClicked"
+            android:text="Saved products"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 
