@@ -1,6 +1,7 @@
 package com.sfu.useify.ui.addProduct
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
@@ -32,12 +33,26 @@ class MyProducts: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_products)
 
+        val actionBar = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
         //get current User ID
         auth = FirebaseAuth.getInstance()
         userID = auth.currentUser?.uid.toString()
 
         initializeFields()
 
+    }
+
+    // Handle clicks on menu items
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun initializeFields() {

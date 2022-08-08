@@ -8,7 +8,9 @@
     <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        >
 
         <TextView
             android:id="@+id/textview_account_settings_title"
@@ -64,7 +66,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_margin="15dp"
-            android:onClick="changePassword"
             android:text="@string/logout" />
     </RelativeLayout>
 

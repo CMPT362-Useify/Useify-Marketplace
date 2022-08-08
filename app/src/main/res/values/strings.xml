@@ -84,4 +84,13 @@
     // Saved products
     <string name="saved_products_title">Saved Products</string>
 
+    //options menu
+    <string name="action_search">Search</string>
+    <string name="action_inbox">Inbox</string>
+    <string name="action_add">Add a New Product</string>
+    <string name="action_view_my_products">All My Products</string>
+    <string name="action_saved_products">Saved Products</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_sign_out">Sign Out</string>
+
 </resources>

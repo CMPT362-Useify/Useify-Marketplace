@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.TextUtils.isEmpty
+import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -86,6 +87,9 @@ class AddEditProductActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_product)
 
+                val actionBar = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
         //get current User ID
         auth = FirebaseAuth.getInstance()
         userID = auth.currentUser?.uid.toString()
@@ -123,6 +127,17 @@ class AddEditProductActivity : AppCompatActivity() {
         // Photo widget setup
         productImgSetUp(savedInstanceState)
 
+    }
+
+    // Handle clicks on menu items
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     fun onLocationClicked(view: View) {
