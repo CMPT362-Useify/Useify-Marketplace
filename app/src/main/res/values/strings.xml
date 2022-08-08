@@ -8,22 +8,29 @@
     <string name="search_bar_hint">Search Useify</string>
     <string name="search_results_title">Results</string>
     <string name="search_category">Category</string>
+    <string name="search_sort_menu_item_title">Sort</string>
+    <string name="search_view_changer_menu_item_title">Change view</string>
     
     // Product details
     <string name="details_title_temp">Title</string>
     <string name="details_price_temp">$0.00</string>
     <string name="details_date_temp">0 days ago</string>
-    <string name="details_description_title">Description</string>
+    <string name="details_description_title">Description:</string>
     <string name="details_description_temp">Description goes here</string>
+    <string name="details_seller_id">Seller.ID</string>
     <string name="details_location_temp">8888 University Dr, Burnaby, BC V5A 1S6</string>
-    <string name="details_contact_button">Contact</string>
+    <string name="details_chat_button">Chat</string>
     <string name="details_save_button">Save</string>
+    <string name="details_share_menu_item_title">Share</string>
 
+    // Sign-up page
     <string name="signup">Sign Up</string>
     <string name="signup_user_name">User Name</string>
     <string name="signup_user_name_hint">Bob Smith 345</string>
-    <string name="signup_name">Name</string>
-    <string name="signup_name_hint">Bob Smith</string>
+    <string name="signup_first_name">First Name</string>
+    <string name="signup_first_name_hint">Bob</string>
+    <string name="signup_last_name">Last Name</string>
+    <string name="signup_last_name_hint">Smith</string>
     <string name="signup_email">E-Mail</string>
     <string name="signup_email_hint">BobSmith@gmail.com</string>
     <string name="signup_phone_number">Phone Number</string>
@@ -65,5 +72,8 @@
     <string name="details">Details</string>
     <string name="search">Search</string>
 
+    // Chat
+    <string name="chat_username_default">Username</string>
+    <string name="chat_new_message_textview_hint">Type a message...</string>
 
 </resources>

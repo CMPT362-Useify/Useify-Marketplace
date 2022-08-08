@@ -17,7 +17,7 @@ import java.io.ByteArrayOutputStream
 class productsViewModel: ViewModel() {
     private var products: MutableLiveData<List<Product>> = MutableLiveData()
     private var productById: MutableLiveData<Product> = MutableLiveData()
-    private var productByCategory: MutableLiveData<Product> = MutableLiveData()
+    private var productsByCategory: MutableLiveData<List<Product>> = MutableLiveData()
 
     private val database = FirebaseDatabase.getInstance()
     private val databaseReference = database.getReference("Products")
@@ -92,21 +92,21 @@ class productsViewModel: ViewModel() {
         return productById
     }
 
-    fun getProductByCategory(category:String): MutableLiveData<Product>{
+    fun getProductByCategory(category:String): MutableLiveData<List<Product>>{
         databaseReference.orderByChild("category").equalTo(category).addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()){
-                    val productsList = snapshot.children.mapNotNull { it.getValue(Product::class.java) }.toList()[0]
-                    productByCategory.postValue(productsList)
+                    val productsList = snapshot.children.mapNotNull { it.getValue(Product::class.java) }.toList()
+                    productsByCategory.postValue(productsList)
                 } else{
-                    productByCategory.postValue(Product())
+                    productsByCategory.postValue(emptyList())
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
             }
         })
-        return productByCategory
+        return productsByCategory
     }
 
     //key: productId of the product in database

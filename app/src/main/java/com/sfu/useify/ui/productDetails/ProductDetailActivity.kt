@@ -1,43 +1,36 @@
 package com.sfu.useify.ui.productDetails
 
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.location.Geocoder
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
+import android.text.method.LinkMovementMethod
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.*
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MutableLiveData
+import androidx.core.text.HtmlCompat
 import com.sfu.useify.R
+import com.sfu.useify.Util.calculateTimeSincePosted
 import com.sfu.useify.database.productsViewModel
 import com.sfu.useify.models.Product
-import java.util.concurrent.Executors
+import com.sfu.useify.ui.chat.ChatActivity
+import com.squareup.picasso.Picasso
+import java.util.*
 
+class ProductDetailActivity: AppCompatActivity() {
+    private lateinit var productsViewModel: productsViewModel
+    private lateinit var titleTextView: TextView
+    private lateinit var priceTextView: TextView
+    private lateinit var dateTextView: TextView
+    private lateinit var descriptionTextView: TextView
+    private lateinit var sellerIdTextView: TextView
+    private lateinit var locationTextView: TextView
+    private lateinit var productImageView: ImageView
 
-class ProductDetailActivity : AppCompatActivity() {
-
-    // TextView fields
-    private lateinit var titleTV: TextView
-    private lateinit var priceTV: TextView
-    private lateinit var descriptionTV: TextView
-    private lateinit var imgIV: ImageView
-    private lateinit var createdAtTV: TextView
-    private lateinit var callBtn: ImageButton
-
-    // general
-    private var productId = ""
-    private var createdDateTime = ""
-
-
-    // Models
-    val productsViewModel = productsViewModel();
-    lateinit var myProduct: MutableLiveData<Product>
+    private var product: Product? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,79 +40,76 @@ class ProductDetailActivity : AppCompatActivity() {
         // Setup share and back buttons in Action Bar
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
-//        actionBar?.hide()
 
-//        val locationLink = findViewById<TextView>(R.id.textview_product_details_location)
-//        locationLink.movementMethod = LinkMovementMethod.getInstance()
-//        locationLink.setLinkTextColor(Color.BLUE)
+        // Setup TextViews
+        titleTextView = findViewById<TextView>(R.id.textview_product_details_title)
+        priceTextView = findViewById<TextView>(R.id.textview_product_details_price)
+        dateTextView = findViewById<TextView>(R.id.textview_product_details_date)
+        descriptionTextView = findViewById<TextView>(R.id.textview_product_details_description)
+        sellerIdTextView = findViewById<TextView>(R.id.textview_product_details_seller_id)
+        locationTextView = findViewById<TextView>(R.id.textview_product_details_location)
+        productImageView = findViewById<ImageView>(R.id.imageview_product_details_photo)
 
 
-        initializeFields()
+        // Setup ViewModel and get productID
+        val bundle: Bundle? = intent.extras
+        productsViewModel = productsViewModel()
+        val productID = bundle?.getString(resources.getString(R.string.key_product_clicked))
 
-        // get product ID from intent
-        val extras = intent.extras
-        if (extras != null) {
-            productId = extras.getString("productIdKey", "")
-            myProduct = productsViewModel.getProductByID(productId)
 
-            myProduct.observe(this) {
-                if (it != null) {
-                    setProductinView(it)
-                }
-                Log.d("myProduct: ", it.name)
-                Toast.makeText(this, "product detail" + it.name, Toast.LENGTH_LONG).show()
-
+        // Get product item
+        if (productID != null){
+            productsViewModel.getProductByID(productID).observe(this) {
+                updateProductDetails(it)
             }
-        }
-
-
-    }
-
-    private fun initializeFields() {
-        titleTV = findViewById(R.id.textview_product_details_title)
-        priceTV = findViewById(R.id.textview_product_details_price)
-        descriptionTV = findViewById(R.id.textview_product_details_description)
-        createdAtTV = findViewById(R.id.textview_product_details_date)
-        imgIV = findViewById(R.id.imageview_product_details_photo)
-        callBtn = findViewById(R.id.imagebutton_call)
-
-        callBtn.setOnClickListener {
-            val dialIntent = Intent(Intent.ACTION_DIAL)
-            dialIntent.data = Uri.parse("tel:" + "8344814819")
-            startActivity(dialIntent)
+        }else {
+            // TODO: Show 'error: product not found' in some way
         }
     }
 
-    private fun setProductinView(it: Product) {
-        titleTV.setText(it.name)
-        priceTV.setText("$" + it.price.toString())
-        descriptionTV.setText(it.description)
-        //createdAtTV.setText()
+    private fun updateProductDetails(newProduct: Product?){
+        if (newProduct == null)
+            return
+        product = newProduct
+        titleTextView.text = newProduct.name
+        descriptionTextView.text = newProduct.description
+        priceTextView.text = String.format("$%.2f", newProduct.price)
+        dateTextView.text = calculateTimeSincePosted(newProduct.createAt)
+        sellerIdTextView.text = newProduct.sellerID
+        Picasso.get().load(newProduct.image).into(productImageView)        // Setup location TextView link (to GMaps)
+        updateLocation(newProduct.pickupLat, newProduct.pickupLong)
+    }
 
-        if (it.image !== "") {
-            val executor = Executors.newSingleThreadExecutor()
-            val handler = Handler(Looper.getMainLooper())
-            var image: Bitmap? = null
-            executor.execute {
-                val imageURL = it.image
-                try {
-                    val `in` = java.net.URL(imageURL).openStream()
-                    image = BitmapFactory.decodeStream(`in`)
-                    // Only for making changes in UI
-                    handler.post {
-                        imgIV.setImageBitmap(image)
-                    }
+    private fun updateLocation(latitude: Double, longitude: Double) {
+        // TODO: TEMPORARY COORDINATES, DELETE LATER WHEN DB HAS PRODUCTS WITH VALID COORDINATES
+        var latitude = 49.28887213454251
+        var longitude = -123.1110637962786
 
-                    val params = RelativeLayout.LayoutParams(
-                        RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.MATCH_PARENT
-                    )
-                    imgIV.setLayoutParams(params)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
+        // Get address from coordinates
+        val geocoder = Geocoder(this, Locale.getDefault())
+        val addresses = geocoder.getFromLocation(latitude, longitude, 1)
+        if (addresses.size == 0){
+            locationTextView.text = "No valid location provided"
+            return
         }
+        val address = addresses[0]
+        var addressString: String = ""
+        for (i in 0 .. address.maxAddressLineIndex)
+            addressString += address.getAddressLine(i)
+
+        // Make the textview a link to google maps for the given coordinates
+        locationTextView.movementMethod = LinkMovementMethod.getInstance()
+        locationTextView.text = HtmlCompat.fromHtml("<a href>${addressString}</a>", HtmlCompat.FROM_HTML_MODE_LEGACY)
+        locationTextView.setOnClickListener {
+            onLocationClicked(it, latitude, longitude)
+        }
+    }
+
+    private fun onLocationClicked(view: View, latitude: Double, longitude: Double){
+        val gmmIntentUri: Uri = Uri.parse("http://maps.google.com/maps?q=loc:$latitude,$longitude")
+        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+        mapIntent.setPackage("com.google.android.apps.maps")
+        startActivity(mapIntent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -129,20 +119,27 @@ class ProductDetailActivity : AppCompatActivity() {
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Finish when back pressed
-        if (item.itemId == android.R.id.home) {
-            onBackPressed()
-        }
-        if (item.title == "Share"){
-            // TODO: implement a share button
+        // Handle Option pressed
+        when (item.itemId){
+            android.R.id.home -> onBackPressed()
+            R.id.menu_share_btn -> onSharePressed()
         }
         return true
     }
 
-    fun onLocationClicked(view: View){
-        val gmmIntentUri: Uri = Uri.parse("http://maps.google.com/maps?q=loc:49.27803091224779,-122.91947918547892")
-        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-        mapIntent.setPackage("com.google.android.apps.maps")
-        startActivity(mapIntent)
+    private fun onSharePressed() {
+        // TODO("implement a share button")
+    }
+
+    // Start chat intent with seller regarding given product
+    fun onChatClicked(view: View){
+        if (product == null)
+            return
+        val intent = Intent(this, ChatActivity::class.java)
+        val bundle = Bundle()
+        bundle.putString(resources.getString(R.string.key_chat_seller_id), product!!.sellerID)
+        bundle.putString(resources.getString(R.string.key_chat_product_id), product!!.productID)
+        intent.putExtras(bundle)
+        startActivity(intent)
     }
 }

@@ -42,8 +42,18 @@
         <activity android:name=".ui.productDetails.ProductDetailActivity"
             android:exported="false" />
         <activity android:name=".ui.categories.SearchCategoriesActivity"
-            android:exported="false" />
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
         <activity android:name=".ui.results.ResultsActivity"
+            android:exported="false" />
+        <activity android:name=".ui.chat.ChatMenuActivity"
+            android:exported="false" />
+        <activity android:name=".ui.chat.ChatActivity"
             android:exported="false" />
 
         <provider
