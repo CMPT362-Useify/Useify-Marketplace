@@ -4,16 +4,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.browse.BrowseActivity">
 
-
     <GridView
         android:id="@+id/browseGridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:numColumns="auto_fit"
-        android:columnWidth="160dp"
+        android:columnWidth="170dp"
         android:layout_margin="10dp" >
     </GridView>
-
 
 </LinearLayout>
 
