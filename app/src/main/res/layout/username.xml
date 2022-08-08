@@ -8,22 +8,26 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/logo"
-        >
+        android:background="@drawable/logo" >
 
-        <androidx.appcompat.widget.AppCompatToggleButton
-            android:id="@+id/dark_theme_toggle_add_product"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/new_username"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="#009688"
-            android:backgroundTint="@color/teal_700"
-            android:buttonTint="@color/teal_700"
-            android:onClick="changeTheme"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="381dp"
+            android:ems="10"
+            android:hint="@string/username"
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/back_button"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </androidx.appcompat.widget.AppCompatToggleButton>
-
+            app:layout_constraintTop_toBottomOf="@+id/username_label"
+            android:importantForAutofill="no" />
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/back_button"
             android:layout_width="0dp"
@@ -65,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="100dp"
             android:layout_marginBottom="430dp"
             android:scaleX="2"
@@ -77,24 +81,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/new_username"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="381dp"
-            android:ems="10"
-            android:hint="@string/username"
-            android:inputType="textPersonName"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            app:layout_constraintBottom_toTopOf="@+id/back_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/username_label"
-            android:importantForAutofill="no" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

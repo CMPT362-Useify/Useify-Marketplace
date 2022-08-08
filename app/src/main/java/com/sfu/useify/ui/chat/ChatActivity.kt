@@ -99,7 +99,7 @@ class ChatActivity: AppCompatActivity() {
     // Get other chatter's username
     private fun getConversationPartnerUsername(){
         usersViewModel.getUserByID(otherUserID!!).observe(this, Observer {
-            usernameTextView.text = it.username
+            usernameTextView.text = it.username!!.trim()
         })
     }
 
