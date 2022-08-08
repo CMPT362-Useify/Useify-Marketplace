@@ -66,7 +66,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_margin="15dp"
-            android:onClick="changePassword"
             android:text="@string/logout" />
     </RelativeLayout>
 
