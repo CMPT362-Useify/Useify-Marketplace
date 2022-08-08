@@ -21,6 +21,7 @@
     <string name="details_location_temp">8888 University Dr, Burnaby, BC V5A 1S6</string>
     <string name="details_chat_button">Chat</string>
     <string name="details_save_button">Save</string>
+    <string name="details_contact_button">Contact</string>
     <string name="details_share_menu_item_title">Share</string>
 
     // Sign-up page

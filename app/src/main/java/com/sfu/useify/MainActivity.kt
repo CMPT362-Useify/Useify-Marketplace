@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.sfu.useify.database.conversationsViewModel
 import com.sfu.useify.resetPages.GeneralSettings
 import com.sfu.useify.resetPages.ResetPassword
-import com.sfu.useify.ui.addProduct.AddProductActivity
+import com.sfu.useify.ui.addProduct.AddEditProductActivity
 import com.sfu.useify.ui.addProduct.MyProducts
 import com.sfu.useify.ui.browse.BrowseActivity
 import com.sfu.useify.ui.categories.SearchCategoriesActivity
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onAddProductClicked(view : View){
-        val newScreen = Intent(this, AddProductActivity::class.java)
+        val newScreen = Intent(this, AddEditProductActivity::class.java)
         startActivity(newScreen)
     }
 

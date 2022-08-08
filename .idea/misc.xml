@@ -14,24 +14,18 @@
         <entry key="app/src/main/res/drawable-night-hdpi/ic_outline_share_24.xml" value="0.1215" />
         <entry key="app/src/main/res/drawable-night-hdpi/ic_round_save_24.xml" value="0.143" />
         <entry key="app/src/main/res/drawable/ic_baseline_person_40.xml" value="0.1215" />
-        <entry key="app/src/main/res/layout/activity_add_product.xml" value="0.12047101449275362" />
+        <entry key="app/src/main/res/layout/activity_add_product.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/activity_browse.xml" value="0.2484375" />
         <entry key="app/src/main/res/layout/activity_chat.xml" value="0.2220916748046875" />
         <entry key="app/src/main/res/layout/activity_chat_menu.xml" value="0.24791666666666667" />
-        <entry key="app/src/main/res/layout/activity_general_settings.xml" value="0.22039642333984377" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.14764492753623187" />
         <entry key="app/src/main/res/layout/activity_product_detail.xml" value="0.24895833333333334" />
-        <entry key="app/src/main/res/layout/activity_reset.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_results.xml" value="0.24895833333333334" />
         <entry key="app/src/main/res/layout/activity_search_categories.xml" value="0.24895833333333334" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.24895833333333334" />
         <entry key="app/src/main/res/layout/listview_category.xml" value="0.2484375" />
         <entry key="app/src/main/res/layout/listview_conversation.xml" value="0.24739583333333334" />
         <entry key="app/src/main/res/layout/listview_results.xml" value="0.2484375" />
-        <entry key="app/src/main/res/layout/password.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/seller_product_item.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/username.xml" value="0.1" />
       </map>
     </option>
   </component>

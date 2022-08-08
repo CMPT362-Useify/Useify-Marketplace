@@ -116,7 +116,24 @@ class productsViewModel: ViewModel() {
 
     //key: productId of the product in database
     fun updateProduct(key: String, product: Product){
+        product.productID = key
         databaseReference.child(key).setValue(product)
+    }
+
+    fun updateProductWithPhoto(key: String, product: Product, bitmap: Bitmap){
+        val photoReference = storageReference.child(System.currentTimeMillis().toString() + ".jpg")
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()
+        var uploadTask = photoReference.putBytes(data)
+        uploadTask.addOnSuccessListener( OnSuccessListener {
+            photoReference.downloadUrl.addOnSuccessListener(OnSuccessListener {
+                product.image = it.toString()
+                product.productID = key
+                databaseReference.child(key).setValue(product)
+            })
+
+        })
     }
 
 
