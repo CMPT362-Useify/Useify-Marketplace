@@ -337,7 +337,7 @@ class AddEditProductActivity : AppCompatActivity() {
                 productCreatedAt
             )
 
-            if (imgUrl != "") {
+            if (isImageChanged) {
                 productsViewModel.addProductWithPhoto(mProduct, bitmap)
             } else {
                 productsViewModel.addProduct(mProduct)
