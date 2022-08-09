@@ -10,7 +10,7 @@ Show and Tell 2: https://youtu.be/FPG-127uBv8
 
 Downloadable project under show_and_tell_2 release
 __________________________________________________
-Final Presentation: ?????????
+Final Presentation: https://www.youtube.com/playlist?list=PLiIFvF4QsLeA_XzH3zhmDBceEIoHkzHD7
 
 Downloadable project under final_presentation release
 __________________________________________________
