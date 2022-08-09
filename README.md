@@ -15,9 +15,13 @@ Final Presentation: ?????????
 Downloadable project under final_presentation release
 __________________________________________________
 Downloadable apk is under the APK folder
+
 MVVM diagram is under the MVVM diagram
+
 Thread Design under Thread folder
+
 Team Effort under TeamEffort folder
+
 __________________________________________________
 Group 04 - Useify
 
