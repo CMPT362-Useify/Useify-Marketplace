@@ -10,8 +10,14 @@ Show and Tell 2: https://youtu.be/FPG-127uBv8
 
 Downloadable project under show_and_tell_2 release
 __________________________________________________
+Final Presentation: ?????????
+
+Downloadable project under final_presentation release
+__________________________________________________
 Downloadable apk is under the APK folder
 MVVM diagram is under the MVVM diagram
+Thread Design under Thread folder
+Team Effort under TeamEffort folder
 __________________________________________________
 Group 04 - Useify
 
